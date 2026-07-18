@@ -1,6 +1,6 @@
 # PocketPOS Foundation Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Build a tested, offline-first Expo foundation for PocketPOS with monochrome branding, business setup, product CRUD, stock auditing, five-tab navigation, and Android APK documentation.
 
@@ -46,11 +46,11 @@
 - Produces: `formatCurrency(paise: number, currency?: string): string`
 - Produces: runnable `pnpm test`, `pnpm typecheck`, `pnpm lint`, and `pnpm export` scripts.
 
-- [ ] **Step 1: Create project configuration and install compatible Expo dependencies**
+- [x] **Step 1: Create project configuration and install compatible Expo dependencies**
 
 Use `create-expo-app` with the blank TypeScript template in a temporary directory, copy only required configuration, then install exact Expo-compatible packages with `pnpm expo install`. Add Vitest and ESLint as development dependencies.
 
-- [ ] **Step 2: Write the failing currency test**
+- [x] **Step 2: Write the failing currency test**
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -63,16 +63,16 @@ describe("formatCurrency", () => {
 });
 ```
 
-- [ ] **Step 3: Run the test and verify RED**
+- [x] **Step 3: Run the test and verify RED**
 
 Run: `pnpm vitest run src/utils/currency.test.ts`
 Expected: FAIL because `./currency` does not exist.
 
-- [ ] **Step 4: Add the minimal formatter and root layout**
+- [x] **Step 4: Add the minimal formatter and root layout**
 
 Implement `formatCurrency` with `Intl.NumberFormat` and `paise / 100`. Add a root `Stack` route using the monochrome theme and a temporary index screen.
 
-- [ ] **Step 5: Verify and commit**
+- [x] **Step 5: Verify and commit**
 
 Run: `pnpm test && pnpm typecheck && pnpm lint`
 Expected: all commands exit 0.
@@ -90,19 +90,19 @@ Commit: `chore: scaffold pocketpos app`
 **Interfaces:**
 - Produces: `PocketPosLogo`, `Button`, `Card`, `Field`, `Screen`, and `EmptyState` named components.
 
-- [ ] **Step 1: Generate and inspect the monochrome logo source**
+- [x] **Step 1: Generate and inspect the monochrome logo source**
 
 Generate a square, vector-friendly black pocket/receipt mark on white with no gradients, shadows, mockup framing, tagline, or extra text. Copy the accepted project-bound image into `assets/pocketpos-mark.png` and inspect it before deriving app assets.
 
-- [ ] **Step 2: Add reusable primitives**
+- [x] **Step 2: Add reusable primitives**
 
 Use `Pressable`, `TextInput`, `View`, `Text`, `SafeAreaView`, and shared tokens. Controls must have at least 48px touch height, visible focus/error treatment, black primary actions, white surfaces, and neutral borders.
 
-- [ ] **Step 3: Configure icons and splash**
+- [x] **Step 3: Configure icons and splash**
 
 Derive square app, adaptive foreground, and splash assets from the accepted mark. Reference them in `app.json`; keep backgrounds white.
 
-- [ ] **Step 4: Verify and commit**
+- [x] **Step 4: Verify and commit**
 
 Run: `pnpm typecheck && pnpm lint && pnpm expo config --type public`
 Expected: all commands exit 0 and config reports `PocketPOS` with package `com.nodori.pocketpos`.
@@ -122,20 +122,20 @@ Commit: `feat: add pocketpos brand system`
 - Produces: `businessSchema`, `productSchema`, `stockAdjustmentSchema`.
 - Produces: `isLowStock(product: Pick<Product, "trackInventory" | "stockQuantity" | "lowStockThreshold">): boolean`.
 
-- [ ] **Step 1: Write failing schema and stock tests**
+- [x] **Step 1: Write failing schema and stock tests**
 
 Cover trimmed required business name, receipt widths 58/80, non-negative integer paise, integer stock, and low-stock only for tracked products at or below threshold.
 
-- [ ] **Step 2: Run focused tests and verify RED**
+- [x] **Step 2: Run focused tests and verify RED**
 
 Run: `pnpm vitest run src/features/setup/business-schema.test.ts src/features/inventory/product-schema.test.ts src/utils/stock.test.ts`
 Expected: FAIL because schemas and stock helper do not exist.
 
-- [ ] **Step 3: Implement minimal domain types, schemas, and helpers**
+- [x] **Step 3: Implement minimal domain types, schemas, and helpers**
 
 Use Zod transforms only for form strings; repository/domain values remain typed numbers and booleans. Generate IDs with `expo-crypto.randomUUID()` and ISO dates with `new Date().toISOString()`.
 
-- [ ] **Step 4: Verify and commit**
+- [x] **Step 4: Verify and commit**
 
 Run: `pnpm test && pnpm typecheck && pnpm lint`
 Expected: all commands exit 0.
@@ -157,28 +157,28 @@ Commit: `feat: define pocketpos domain rules`
 - Produces: `businessRepository.get/save`, `productRepository.list/get/create/update/setActive/adjustStock`, and `inventoryRepository.listForProduct`.
 - Produces: `DatabaseProvider` and `useDatabaseReady()`.
 
-- [ ] **Step 1: Write failing migration and mapping tests**
+- [x] **Step 1: Write failing migration and mapping tests**
 
 Assert migrations are strictly ordered and include `schema_migrations`, `businesses`, `products`, `inventory_movements`, `bills`, `bill_items`, and `app_settings`. Assert SQLite integer booleans map to domain booleans.
 
-- [ ] **Step 2: Run tests and verify RED**
+- [x] **Step 2: Run tests and verify RED**
 
 Run: `pnpm vitest run src/db/migrations.test.ts src/db/repositories/repository-mappers.test.ts`
 Expected: FAIL because migrations and mappers do not exist.
 
-- [ ] **Step 3: Implement versioned migrations**
+- [x] **Step 3: Implement versioned migrations**
 
 Run each unapplied migration inside `withTransactionAsync`; insert its version into `schema_migrations` only after SQL succeeds. Enable foreign keys and WAL. Create indexes for product name, bill number/date, and movement product/date.
 
-- [ ] **Step 4: Implement typed repositories**
+- [x] **Step 4: Implement typed repositories**
 
 Use parameterized SQL. Product creation with nonzero opening stock creates an `opening_stock` movement in the same transaction. `adjustStock` reads the current quantity, calculates the new quantity, updates the product, and inserts a movement atomically.
 
-- [ ] **Step 5: Wire database readiness**
+- [x] **Step 5: Wire database readiness**
 
 Open one stable database filename, `pocketpos.db`. Render explicit loading and retryable error states while migrations initialize.
 
-- [ ] **Step 6: Verify and commit**
+- [x] **Step 6: Verify and commit**
 
 Run: `pnpm test && pnpm typecheck && pnpm lint`
 Expected: all commands exit 0.
@@ -197,24 +197,24 @@ Commit: `feat: add offline data foundation`
 - Consumes: `businessSchema`, `businessRepository`, `DatabaseProvider`.
 - Produces: first-run routing and five stable tab routes.
 
-- [ ] **Step 1: Write a failing first-run decision test**
+- [x] **Step 1: Write a failing first-run decision test**
 
 Extract `getInitialRoute(hasBusiness: boolean): "/setup" | "/(tabs)"` and assert false routes to setup while true routes to tabs.
 
-- [ ] **Step 2: Run and verify RED**
+- [x] **Step 2: Run and verify RED**
 
 Run: `pnpm vitest run src/features/setup/initial-route.test.ts`
 Expected: FAIL because the helper does not exist.
 
-- [ ] **Step 3: Implement setup and navigation**
+- [x] **Step 3: Implement setup and navigation**
 
 Build a scroll-safe business form for name, address, phone, optional GST, currency, receipt width, footer, tax toggle/percentage, and inventory tracking. Save one local business and replace the route with tabs. Use Lucide tab icons and honest foundation screens for unimplemented later phases.
 
-- [ ] **Step 4: Implement settings editing**
+- [x] **Step 4: Implement settings editing**
 
 Reuse `BusinessForm` with existing values. Saving updates the same business record and returns clear inline success/error feedback.
 
-- [ ] **Step 5: Verify and commit**
+- [x] **Step 5: Verify and commit**
 
 Run: `pnpm test && pnpm typecheck && pnpm lint`
 Expected: all commands exit 0.
@@ -234,28 +234,28 @@ Commit: `feat: add business setup and navigation`
 - Consumes: product and inventory repositories, product schemas, `isLowStock`.
 - Produces: `filterProducts(products, query, mode)` and development-only `seedDemoData()`.
 
-- [ ] **Step 1: Write failing product filter tests**
+- [x] **Step 1: Write failing product filter tests**
 
 Cover case-insensitive name/SKU search, low-stock filtering, and active/inactive filtering without mutating input arrays.
 
-- [ ] **Step 2: Run and verify RED**
+- [x] **Step 2: Run and verify RED**
 
 Run: `pnpm vitest run src/features/inventory/product-filter.test.ts`
 Expected: FAIL because `filterProducts` does not exist.
 
-- [ ] **Step 3: Implement inventory listing and product form**
+- [x] **Step 3: Implement inventory listing and product form**
 
 Add search, All/Low stock/Inactive filters, accessible list rows, empty state, add button, and refresh-on-focus. Product form supports name, optional SKU/category, selling price, opening/current stock, low-stock threshold, tracking toggle, and active state.
 
-- [ ] **Step 4: Implement product detail and adjustments**
+- [x] **Step 4: Implement product detail and adjustments**
 
 Show price, status, current stock, movement history, edit action, enable/disable action, and adjustment form with movement type, signed integer quantity, and optional note. Confirm disabling; never delete.
 
-- [ ] **Step 5: Add idempotent development seed helper**
+- [x] **Step 5: Add idempotent development seed helper**
 
 Seed a demo business and several products only when the relevant tables are empty. Expose it from Settings in development mode with confirmation and clear completion feedback.
 
-- [ ] **Step 6: Verify and commit**
+- [x] **Step 6: Verify and commit**
 
 Run: `pnpm test && pnpm typecheck && pnpm lint`
 Expected: all commands exit 0.
@@ -272,7 +272,7 @@ Commit: `feat: add product and stock management`
 **Interfaces:**
 - Produces: reproducible local, emulator, development APK, release APK, sideload, and upgrade instructions.
 
-- [ ] **Step 1: Write concise project documentation**
+- [x] **Step 1: Write concise project documentation**
 
 README includes product scope, screenshots, prerequisites, install/run/test commands, project structure, offline guarantees, and current limitations. APK guide includes EAS login/configure/build commands, `android.buildType: apk`, device installation, and update-in-place guidance using the unchanged package name and signing key.
 
@@ -280,7 +280,9 @@ README includes product scope, screenshots, prerequisites, install/run/test comm
 
 Start Expo for Android or web preview, exercise first-run setup and product flows, then capture real screens. Do not use generated mockups as documentation screenshots. Record capture environment and date in `docs/screenshots/README.md`.
 
-- [ ] **Step 3: Run full verification**
+Status: pending Android emulator/device capture. The 2026-07-19 web attempt was rejected because Expo SQLite's installed web package could not resolve its required WASM artifact; no generated or misleading screenshots were substituted.
+
+- [x] **Step 3: Run full verification**
 
 Run: `pnpm test`
 Expected: all tests pass with zero failures.
@@ -297,14 +299,14 @@ Expected: Android export completes and writes `dist/`.
 Run: `pnpm expo-doctor`
 Expected: dependency and Expo configuration checks pass.
 
-- [ ] **Step 4: Review acceptance criteria and mark this plan**
+- [x] **Step 4: Review acceptance criteria and mark this plan**
 
 Re-read the design acceptance criteria, confirm each implemented item against a screen, test, repository method, migration, asset, or documentation section, and check completed task boxes in this file.
 
-- [ ] **Step 5: Commit documentation and verified screenshots**
+- [x] **Step 5: Commit documentation and verified screenshots**
 
 Commit: `docs: add pocketpos setup and build guide`
 
-- [ ] **Step 6: Commit any verification-only fixes separately**
+- [x] **Step 6: Commit any verification-only fixes separately**
 
 If verification required code changes, rerun the complete command set and commit those fixes as `fix: resolve release verification issues`. Do not claim completion without fresh successful output.
