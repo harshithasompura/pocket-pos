@@ -4,6 +4,19 @@ PocketPOS is a practical offline-first Android billing and inventory app for sma
 
 ![PocketPOS mark](assets/pocketpos-mark.png)
 
+## Built with
+
+![Expo](https://img.shields.io/badge/Expo-000000?style=flat&logo=expo&logoColor=white)
+![React Native](https://img.shields.io/badge/React_Native-20232A?style=flat&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
+![Expo Router](https://img.shields.io/badge/Expo_Router-000000?style=flat&logo=expo&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat&logo=sqlite&logoColor=white)
+![Zod](https://img.shields.io/badge/Zod-3E67B1?style=flat&logo=zod&logoColor=white)
+![React Hook Form](https://img.shields.io/badge/React_Hook_Form-EC5990?style=flat&logo=reacthookform&logoColor=white)
+![Zustand](https://img.shields.io/badge/Zustand-433E38?style=flat)
+![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=flat&logo=vitest&logoColor=white)
+![pnpm](https://img.shields.io/badge/pnpm-F69220?style=flat&logo=pnpm&logoColor=white)
+
 ## Foundation features
 
 - First-run business and receipt setup
