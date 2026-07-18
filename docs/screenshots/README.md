@@ -1,11 +1,12 @@
-# PocketPOS Screenshot Status
+# PocketPOS Screenshots
 
-Real screenshots—not generated mockups—will document these Android states:
+These are real PocketPOS captures from an iPhone 15 simulator at 1179 × 2556:
 
-1. First-run business setup
-2. Inventory catalogue with demo products
-3. Product detail with movement history
+- `splash.png` — PocketPOS launch screen
+- `setup.png` — first-run business setup
+- `inventory.png` — catalogue with three demo products and a low-stock warning
+- `product-detail.png` — Masala Tea stock controls and opening-stock history
 
-The 2026-07-19 browser capture attempt was not used because Expo SQLite 57’s web package did not include the required `wa-sqlite.wasm` artifact in this pnpm installation. Android remains the target platform and is verified through the Android export command.
+The demo catalogue contains Masala Tea, Filter Coffee, and Paper Bag. Data was stored in the same local SQLite database used by PocketPOS; no mockup or generated UI was substituted.
 
-Capture the images from an Android emulator or device at 1080 × 2400 or a comparable phone resolution. Save them as `setup.png`, `inventory.png`, and `product-detail.png` in this directory, then link them from the root README.
+Expo Go's development-tool button can appear in development captures. Final Android release captures can replace these images after the APK milestone without changing the README layout.

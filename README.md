@@ -82,4 +82,10 @@ See [APK_BUILD.md](docs/APK_BUILD.md) for development and release APK instructio
 
 ## Screenshots
 
-Verified Android screenshots will be added after the first emulator/device capture. See [screenshots/README.md](docs/screenshots/README.md) for the capture checklist and current status.
+Captured from PocketPOS running locally on an iPhone 15 simulator with offline demo data.
+
+| Setup | Inventory | Product detail |
+| --- | --- | --- |
+| <img src="docs/screenshots/setup.png" alt="PocketPOS business setup" width="260" /> | <img src="docs/screenshots/inventory.png" alt="PocketPOS inventory catalogue" width="260" /> | <img src="docs/screenshots/product-detail.png" alt="PocketPOS product stock detail" width="260" /> |
+
+The [launch screen](docs/screenshots/splash.png) and full capture notes are available in [docs/screenshots](docs/screenshots/README.md).
