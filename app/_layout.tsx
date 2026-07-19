@@ -7,14 +7,23 @@ import { DatabaseProvider } from "@/src/db/database-provider";
 export const RootLayout = () => (
   <>
     <StatusBar style="dark" />
-    <DatabaseProvider><Stack
-      screenOptions={{
-        contentStyle: { backgroundColor: colors.background },
-        headerShadowVisible: false,
-        headerStyle: { backgroundColor: colors.background },
-        headerTintColor: colors.text,
-      }}
-    /></DatabaseProvider>
+    <DatabaseProvider>
+      <Stack
+        screenOptions={{
+          contentStyle: { backgroundColor: colors.background },
+          headerShadowVisible: false,
+          headerStyle: { backgroundColor: colors.background },
+          headerTintColor: colors.text,
+        }}
+      >
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="setup" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="product/new" options={{ title: "Add product" }} />
+        <Stack.Screen name="product/[id]" options={{ title: "Product details" }} />
+        <Stack.Screen name="product/[id]/edit" options={{ title: "Edit product" }} />
+      </Stack>
+    </DatabaseProvider>
   </>
 );
 

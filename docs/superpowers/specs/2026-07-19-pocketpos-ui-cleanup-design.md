@@ -30,7 +30,7 @@ Tablet max-width behavior remains unchanged.
 
 ## Expo configuration hygiene
 
-Restore `expo-env.d.ts` and the canonical TypeScript includes used by the committed project. The simulator-generated formatting rewrite will not become a product change. TypeScript, lint, and tests must pass after restoration.
+Accept Expo 57's generated TypeScript configuration so starting Metro does not dirty the working tree. Expo 57 removes the legacy `expo-env.d.ts` reference and normalizes the remaining includes. TypeScript, lint, and tests must pass with that generated configuration committed.
 
 ## Validation
 

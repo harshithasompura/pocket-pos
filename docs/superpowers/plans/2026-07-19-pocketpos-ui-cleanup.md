@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Remove internal route labels, restore canonical Expo TypeScript configuration, and give PocketPOS screens consistent breathing room without changing the monochrome product identity.
+**Goal:** Remove internal route labels, adopt Expo 57's generated TypeScript configuration, and give PocketPOS screens consistent breathing room without changing the monochrome product identity.
 
 **Architecture:** Keep Expo Router and the existing UI primitives. Configure the root stack explicitly, extend the shared spacing scale, and apply those tokens through current screens instead of adding layout dependencies or parallel component systems.
 
@@ -21,7 +21,7 @@
 ### Task 1: Expo configuration and navigation labels
 
 **Files:**
-- Restore: `expo-env.d.ts`
+- Delete: `expo-env.d.ts`
 - Modify: `tsconfig.json`
 - Modify: `app/_layout.tsx`
 
@@ -29,18 +29,12 @@
 - Consumes: Expo Router's `Stack` and the existing route files.
 - Produces: explicit root-stack presentation for setup, tabs, product creation, product detail, and product editing.
 
-- [ ] **Step 1: Restore Expo's committed TypeScript inputs**
+- [ ] **Step 1: Accept Expo 57's generated TypeScript inputs**
 
-Restore `expo-env.d.ts` to:
-
-```ts
-/// <reference types="expo/types" />
-```
-
-Restore `tsconfig.json` includes to:
+Remove the legacy `expo-env.d.ts` file. Keep Expo's generated include list:
 
 ```json
-"include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
+"include": ["**/*.ts", "**/*.tsx"]
 ```
 
 - [ ] **Step 2: Configure human-readable stack routes**
@@ -69,7 +63,7 @@ Open setup, tabs, product detail, and edit. Confirm no screen displays `(tabs)`,
 - [ ] **Step 5: Commit**
 
 ```bash
-git add expo-env.d.ts tsconfig.json app/_layout.tsx
+git add expo-env.d.ts tsconfig.json app/_layout.tsx docs/superpowers/specs/2026-07-19-pocketpos-ui-cleanup-design.md docs/superpowers/plans/2026-07-19-pocketpos-ui-cleanup.md
 git commit -m "fix: clean up navigation headers" -m "Co-authored-by: Codex <noreply@openai.com>"
 ```
 
