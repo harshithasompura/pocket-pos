@@ -32,11 +32,13 @@ PocketPOS is a practical offline-first billing and inventory app for small busin
 - Sequential invoice numbers, bill history, and completed bill details
 - Monochrome 58 mm and 80 mm thermal receipt rendering
 - System receipt printing plus locally generated, shareable bill PDFs
+- Offline Today, 7-day, and 30-day sales analytics with native charts
+- Payment totals, top products, recent bills, and low-stock dashboard summaries
 - Local SQLite source of truth with transactional, versioned migrations
 - Development-only idempotent demo data
 - Android development, preview, and release APK profiles
 
-Direct ESC/POS printer integration, bill voiding, dashboard analytics, and backup/restore are intentionally reserved for later phases.
+Direct ESC/POS printer integration, bill voiding, and backup/restore are intentionally reserved for later phases.
 
 ## Requirements
 
@@ -72,6 +74,7 @@ src/db/                      SQLite setup, migrations, repositories
 src/features/setup/          business setup and validation
 src/features/inventory/      product and stock workflows
 src/features/billing/        cart, checkout, and bill history
+src/features/analytics/      offline dashboard queries and UI
 src/types/                   domain models
 src/utils/                   currency, dates, IDs, stock rules
 docs/                        architecture and APK guides
@@ -91,12 +94,12 @@ See [APK_BUILD.md](docs/APK_BUILD.md) for development and release APK instructio
 
 Captured from PocketPOS running locally on an iPhone 15 simulator with offline demo data.
 
-| Sell | Receipt actions | Inventory |
+| Sell | Dashboard | Receipt actions |
 | --- | --- | --- |
-| <img src="docs/screenshots/sell.png" alt="PocketPOS new bill screen" width="260" /> | <img src="docs/screenshots/receipt-actions.png" alt="PocketPOS receipt print and PDF actions" width="260" /> | <img src="docs/screenshots/inventory.png" alt="PocketPOS inventory catalogue" width="260" /> |
+| <img src="docs/screenshots/sell.png" alt="PocketPOS new bill screen" width="260" /> | <img src="docs/screenshots/dashboard.png" alt="PocketPOS offline sales dashboard" width="260" /> | <img src="docs/screenshots/receipt-actions.png" alt="PocketPOS receipt print and PDF actions" width="260" /> |
 
-| Setup | Product detail |
-| --- | --- |
-| <img src="docs/screenshots/setup.png" alt="PocketPOS business setup" width="260" /> | <img src="docs/screenshots/product-detail.png" alt="PocketPOS product stock detail" width="260" /> |
+| Inventory | Setup | Product detail |
+| --- | --- | --- |
+| <img src="docs/screenshots/inventory.png" alt="PocketPOS inventory catalogue" width="260" /> | <img src="docs/screenshots/setup.png" alt="PocketPOS business setup" width="260" /> | <img src="docs/screenshots/product-detail.png" alt="PocketPOS product stock detail" width="260" /> |
 
 The [launch screen](docs/screenshots/splash.png) and full capture notes are available in [docs/screenshots](docs/screenshots/README.md).
