@@ -36,10 +36,10 @@ export const BusinessForm = ({ initial, submitLabel, onSubmit }: BusinessFormPro
 };
 
 const styles = StyleSheet.create({
-  form: { gap: spacing.lg }, row: { flexDirection: "row", flexWrap: "wrap", gap: spacing.md }, flex: { flex: 1, minWidth: 180 },
+  form: { gap: spacing.xl }, row: { flexDirection: "row", flexWrap: "wrap", gap: spacing.lg }, flex: { flex: 1, minWidth: 180 },
   label: { color: colors.text, fontSize: 14, fontWeight: "700" }, hint: { color: colors.muted, fontSize: 13, marginTop: spacing.xs },
   segmented: { backgroundColor: colors.surface, borderColor: colors.border, borderRadius: radius.md, borderWidth: 1, flexDirection: "row", padding: spacing.xs },
   segment: { alignItems: "center", borderRadius: radius.sm, flex: 1, minHeight: 44, justifyContent: "center" }, segmentActive: { backgroundColor: colors.text },
   segmentText: { color: colors.text, fontWeight: "700" }, segmentTextActive: { color: colors.inverse },
-  toggle: { alignItems: "center", backgroundColor: colors.surface, borderColor: colors.border, borderRadius: radius.md, borderWidth: 1, flexDirection: "row", gap: spacing.md, padding: spacing.md },
+  toggle: { alignItems: "center", backgroundColor: colors.surface, borderColor: colors.border, borderRadius: radius.md, borderWidth: 1, flexDirection: "row", gap: spacing.lg, padding: spacing.lg },
 });

@@ -8,6 +8,6 @@ export const colors = {
   danger: "#B42318",
 } as const;
 
-export const spacing = { xs: 4, sm: 8, md: 16, lg: 24, xl: 32 } as const;
+export const spacing = { xs: 4, sm: 8, md: 16, lg: 24, xl: 32, xxl: 40 } as const;
 
 export const radius = { sm: 8, md: 12, xl: 20 } as const;

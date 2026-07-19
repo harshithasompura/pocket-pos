@@ -15,4 +15,4 @@ export const SetupScreen = () => {
   return <Screen scroll style={styles.screen}><PocketPosLogo /><Text style={styles.title}>Set up your counter.</Text><Text style={styles.body}>Everything stays on this device. You can change these details later.</Text><BusinessForm submitLabel="Start using PocketPOS" onSubmit={save} /></Screen>;
 };
 
-const styles = StyleSheet.create({ screen: { gap: spacing.md }, title: { color: colors.text, fontSize: 34, fontWeight: "800", letterSpacing: -1 }, body: { color: colors.muted, fontSize: 16, lineHeight: 24, marginBottom: spacing.md } });
+const styles = StyleSheet.create({ screen: { gap: spacing.lg }, title: { color: colors.text, fontSize: 34, fontWeight: "800", letterSpacing: -1 }, body: { color: colors.muted, fontSize: 16, lineHeight: 24, marginBottom: spacing.sm } });

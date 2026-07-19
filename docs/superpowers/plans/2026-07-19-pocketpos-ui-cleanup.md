@@ -78,6 +78,7 @@ git commit -m "fix: clean up navigation headers" -m "Co-authored-by: Codex <nore
 - Modify: `src/features/setup/business-form.tsx`
 - Modify: `src/features/inventory/inventory-screen.tsx`
 - Modify: `src/features/inventory/product-detail-screen.tsx`
+- Modify: `src/features/inventory/product-form.tsx`
 - Modify: `app/(tabs)/settings.tsx`
 
 **Interfaces:**
@@ -121,7 +122,7 @@ In the iPhone 15 simulator, inspect setup, inventory, product detail, and settin
 - [ ] **Step 8: Commit**
 
 ```bash
-git add src/constants/theme.ts src/components/ui/screen.tsx src/components/ui/card.tsx src/components/ui/field.tsx src/features/setup/setup-screen.tsx src/features/setup/business-form.tsx src/features/inventory/inventory-screen.tsx src/features/inventory/product-detail-screen.tsx 'app/(tabs)/settings.tsx'
+git add src/constants/theme.ts src/components/ui/screen.tsx src/components/ui/card.tsx src/components/ui/field.tsx src/features/setup/setup-screen.tsx src/features/setup/business-form.tsx src/features/inventory/inventory-screen.tsx src/features/inventory/product-detail-screen.tsx src/features/inventory/product-form.tsx 'app/(tabs)/settings.tsx' docs/superpowers/plans/2026-07-19-pocketpos-ui-cleanup.md
 git commit -m "style: improve interface spacing" -m "Co-authored-by: Codex <noreply@openai.com>"
 ```
 

@@ -3,7 +3,7 @@ import { StyleSheet, Switch, Text, View } from "react-native";
 
 import { Button } from "@/src/components/ui/button";
 import { Field } from "@/src/components/ui/field";
-import { colors, spacing } from "@/src/constants/theme";
+import { colors, radius, spacing } from "@/src/constants/theme";
 import type { Product } from "@/src/types/domain";
 import { productSchema, type ProductValues } from "./product-schema";
 
@@ -29,4 +29,4 @@ export const ProductForm = ({ product, onSubmit }: ProductFormProps) => {
   </View>;
 };
 
-const styles = StyleSheet.create({ form: { gap: spacing.lg }, row: { flexDirection: "row", flexWrap: "wrap", gap: spacing.md }, flex: { flex: 1, minWidth: 150 }, toggle: { alignItems: "center", flexDirection: "row", gap: spacing.md }, label: { color: colors.text, fontSize: 15, fontWeight: "700" }, hint: { color: colors.muted, fontSize: 13, marginTop: spacing.xs }, error: { color: colors.danger, fontSize: 14 } });
+const styles = StyleSheet.create({ form: { gap: spacing.xl }, row: { flexDirection: "row", flexWrap: "wrap", gap: spacing.lg }, flex: { flex: 1, minWidth: 150 }, toggle: { alignItems: "center", backgroundColor: colors.surface, borderColor: colors.border, borderRadius: radius.md, borderWidth: 1, flexDirection: "row", gap: spacing.lg, padding: spacing.lg }, label: { color: colors.text, fontSize: 15, fontWeight: "700" }, hint: { color: colors.muted, fontSize: 13, marginTop: spacing.xs }, error: { color: colors.danger, fontSize: 14 } });
