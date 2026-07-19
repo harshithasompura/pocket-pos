@@ -34,11 +34,12 @@ PocketPOS is a practical offline-first billing and inventory app for small busin
 - System receipt printing plus locally generated, shareable bill PDFs
 - Offline Today, 7-day, and 30-day sales analytics with native charts
 - Payment totals, top products, recent bills, and low-stock dashboard summaries
+- Auditable bill voiding with transactional stock restoration
 - Local SQLite source of truth with transactional, versioned migrations
 - Development-only idempotent demo data
 - Android development, preview, and release APK profiles
 
-Direct ESC/POS printer integration, bill voiding, and backup/restore are intentionally reserved for later phases.
+Direct ESC/POS printer integration and backup/restore are intentionally reserved for later phases.
 
 ## Requirements
 
@@ -94,9 +95,9 @@ See [APK_BUILD.md](docs/APK_BUILD.md) for development and release APK instructio
 
 Captured from PocketPOS running locally on an iPhone 15 simulator with offline demo data.
 
-| Sell | Dashboard | Receipt actions |
+| Sell | Dashboard | Voided bill |
 | --- | --- | --- |
-| <img src="docs/screenshots/sell.png" alt="PocketPOS new bill screen" width="260" /> | <img src="docs/screenshots/dashboard.png" alt="PocketPOS offline sales dashboard" width="260" /> | <img src="docs/screenshots/receipt-actions.png" alt="PocketPOS receipt print and PDF actions" width="260" /> |
+| <img src="docs/screenshots/sell.png" alt="PocketPOS new bill screen" width="260" /> | <img src="docs/screenshots/dashboard.png" alt="PocketPOS offline sales dashboard" width="260" /> | <img src="docs/screenshots/voided-bill.png" alt="PocketPOS voided bill with reason" width="260" /> |
 
 | Inventory | Setup | Product detail |
 | --- | --- | --- |
