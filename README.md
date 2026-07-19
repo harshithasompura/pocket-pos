@@ -35,11 +35,12 @@ PocketPOS is a practical offline-first billing and inventory app for small busin
 - Offline Today, 7-day, and 30-day sales analytics with native charts
 - Payment totals, top products, recent bills, and low-stock dashboard summaries
 - Auditable bill voiding with transactional stock restoration
+- Versioned JSON backup, native sharing, validation, and atomic full restore
 - Local SQLite source of truth with transactional, versioned migrations
 - Development-only idempotent demo data
 - Android development, preview, and release APK profiles
 
-Direct ESC/POS printer integration and backup/restore are intentionally reserved for later phases.
+Direct ESC/POS printer integration is intentionally reserved for a later phase; PocketPOS currently prints through the device system print sheet.
 
 ## Requirements
 
@@ -89,7 +90,7 @@ Business details, products, stock quantities, movement history, and completed bi
 
 ## Android builds
 
-See [APK_BUILD.md](docs/APK_BUILD.md) for development and release APK instructions. Architecture and data-boundary details are in [ARCHITECTURE.md](docs/ARCHITECTURE.md).
+See [APK_BUILD.md](docs/APK_BUILD.md) for development and release APK instructions. Data transfer and recovery are covered in [BACKUP_RESTORE.md](docs/BACKUP_RESTORE.md), and architecture details are in [ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Screenshots
 
@@ -102,5 +103,9 @@ Captured from PocketPOS running locally on an iPhone 15 simulator with offline d
 | Inventory | Setup | Product detail |
 | --- | --- | --- |
 | <img src="docs/screenshots/inventory.png" alt="PocketPOS inventory catalogue" width="260" /> | <img src="docs/screenshots/setup.png" alt="PocketPOS business setup" width="260" /> | <img src="docs/screenshots/product-detail.png" alt="PocketPOS product stock detail" width="260" /> |
+
+| Data backup |
+| --- |
+| <img src="docs/screenshots/settings-backup.png" alt="PocketPOS portable data backup controls" width="260" /> |
 
 The [launch screen](docs/screenshots/splash.png) and full capture notes are available in [docs/screenshots](docs/screenshots/README.md).

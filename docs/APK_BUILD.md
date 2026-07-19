@@ -59,6 +59,8 @@ adb install path/to/pocketpos.apk
 
 ## Update without losing data
 
+Export a PocketPOS backup from Settings before every update. This provides a portable recovery copy even though an in-place update normally keeps the local database.
+
 Build with the same package name and signing key, then install over the existing app:
 
 ```bash
@@ -66,6 +68,18 @@ adb install -r path/to/pocketpos-new.apk
 ```
 
 Do not uninstall the old app first. Uninstalling removes its private SQLite database. On first launch after an in-place update, PocketPOS runs any new versioned migrations before rendering the application.
+
+## Client handoff
+
+Before sending a client build:
+
+1. Complete every command under Pre-release checks.
+2. Install the production APK on a clean Android device.
+3. Create a business and product, complete and void a test bill, then export a backup.
+4. Print both 58 mm and 80 mm receipts with the client's actual printer.
+5. Give the client the APK, the saved backup, and [BACKUP_RESTORE.md](BACKUP_RESTORE.md).
+
+Physical Android installation and printer output are release gates because neither is fully represented by an iOS simulator.
 
 ## Pre-release checks
 
