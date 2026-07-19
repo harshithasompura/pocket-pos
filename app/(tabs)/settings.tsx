@@ -90,7 +90,6 @@ export const SettingsScreen = () => {
     <Screen scroll style={styles.screen}>
       <Text style={styles.title}>Business settings</Text>
       <Text style={styles.body}>Receipt and billing defaults stay on this device.</Text>
-      <BusinessForm initial={{ ...business, address: business.address ?? "", phone: business.phone ?? "", gstNumber: business.gstNumber ?? "", receiptFooter: business.receiptFooter ?? "" }} submitLabel="Save changes" onSubmit={save} />
       <Card style={styles.backupCard}>
         <View style={styles.cardCopy}>
           <Text style={styles.cardTitle}>Data backup</Text>
@@ -99,6 +98,7 @@ export const SettingsScreen = () => {
         <Button label="Export & share backup" loading={backupAction === "export"} disabled={backupAction !== null} onPress={exportBackup} />
         <Button label="Restore backup" loading={backupAction === "restore"} disabled={backupAction !== null} variant="secondary" onPress={chooseBackup} />
       </Card>
+      <BusinessForm initial={{ ...business, address: business.address ?? "", phone: business.phone ?? "", gstNumber: business.gstNumber ?? "", receiptFooter: business.receiptFooter ?? "" }} submitLabel="Save changes" onSubmit={save} />
       {__DEV__ && <Button label="Add demo products" variant="secondary" onPress={seed} />}
     </Screen>
   );
