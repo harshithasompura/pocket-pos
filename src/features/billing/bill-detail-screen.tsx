@@ -4,10 +4,12 @@ import { Alert, StyleSheet, Text, View } from "react-native";
 
 import { Button } from "@/src/components/ui/button";
 import { Card } from "@/src/components/ui/card";
+import { Field } from "@/src/components/ui/field";
 import { Screen } from "@/src/components/ui/screen";
 import { colors, spacing } from "@/src/constants/theme";
 import { useDatabaseReady } from "@/src/db/database-provider";
 import { createBillRepository } from "@/src/db/repositories/bill-repository";
+import { voidBill } from "./bill-void-service";
 import { createNativeReceiptService } from "@/src/features/receipts/native-receipt-service";
 import type { Bill, BillItem } from "@/src/types/domain";
 import { formatCurrency } from "@/src/utils/currency";
@@ -21,6 +23,9 @@ export const BillDetailScreen = ({ id }: { id: string }) => {
   const [items, setItems] = useState<BillItem[]>([]);
   const [printing, setPrinting] = useState(false);
   const [sharing, setSharing] = useState(false);
+  const [showVoidForm, setShowVoidForm] = useState(false);
+  const [voidReason, setVoidReason] = useState("");
+  const [voiding, setVoiding] = useState(false);
 
   const load = useCallback(async () => {
     const repository = createBillRepository(db);
@@ -57,6 +62,28 @@ export const BillDetailScreen = ({ id }: { id: string }) => {
     }
   };
 
+  const confirmVoid = async () => {
+    setVoiding(true);
+    try {
+      await voidBill(db, { billId: id, reason: voidReason });
+      setShowVoidForm(false);
+      setVoidReason("");
+      await load();
+    } catch (error) {
+      Alert.alert("Bill not voided", `${errorMessage(error)} Nothing was changed.`);
+    } finally {
+      setVoiding(false);
+    }
+  };
+
+  const requestVoid = () => {
+    if (voidReason.trim().length < 3) return Alert.alert("Reason required", "Enter at least 3 characters explaining why this bill is being voided.");
+    Alert.alert("Void this bill?", "Tracked stock will be restored. This cannot be undone.", [
+      { text: "Cancel", style: "cancel" },
+      { text: "Void bill", style: "destructive", onPress: () => { void confirmVoid(); } },
+    ]);
+  };
+
   if (!bill) return <Screen><Text style={styles.meta}>Loading bill…</Text></Screen>;
 
   const outputStatus = [
@@ -87,9 +114,12 @@ export const BillDetailScreen = ({ id }: { id: string }) => {
         <View style={styles.totalRow}><Text style={styles.meta}>Tax</Text><Text>{formatCurrency(bill.taxPaise)}</Text></View>
         <View style={styles.totalRow}><Text style={styles.totalLabel}>Grand total</Text><Text style={styles.total}>{formatCurrency(bill.totalPaise)}</Text></View>
         <Text style={styles.status}>SAVED OFFLINE · {bill.status.toUpperCase()}</Text>
-        <Text style={styles.outputStatus}>{outputStatus}</Text>
-        <Button label="Print receipt" loading={printing} disabled={sharing} onPress={print} />
-        <Button label={bill.pdfUri ? "Share PDF" : "Create & share PDF"} variant="secondary" loading={sharing} disabled={printing} onPress={share} />
+        {bill.status === "void" ? <View style={styles.voidState}><Text style={styles.voidTitle}>VOID</Text><Text style={styles.voidReason}>{bill.voidReason}</Text>{bill.voidedAt && <Text style={styles.meta}>{formatDateTime(bill.voidedAt)}</Text>}</View> : <>
+          <Text style={styles.outputStatus}>{outputStatus}</Text>
+          <Button label="Print receipt" loading={printing} disabled={sharing || voiding} onPress={print} />
+          <Button label={bill.pdfUri ? "Share PDF" : "Create & share PDF"} variant="secondary" loading={sharing} disabled={printing || voiding} onPress={share} />
+          {!showVoidForm ? <Button label="Void bill" variant="danger" disabled={printing || sharing} onPress={() => setShowVoidForm(true)} /> : <Card style={styles.voidForm}><Field label="Reason for voiding" value={voidReason} onChangeText={setVoidReason} multiline /><Button label="Confirm void" variant="danger" loading={voiding} onPress={requestVoid} /><Button label="Cancel" variant="secondary" disabled={voiding} onPress={() => { setShowVoidForm(false); setVoidReason(""); }} /></Card>}
+        </>}
       </Card>
     </Screen>
   );
@@ -110,4 +140,8 @@ const styles = StyleSheet.create({
   total: { fontSize: 22, fontWeight: "800" },
   status: { borderTopColor: colors.border, borderTopWidth: 1, color: colors.muted, fontSize: 12, fontWeight: "700", letterSpacing: 1, paddingTop: spacing.md },
   outputStatus: { color: colors.text, fontSize: 12, fontWeight: "800", letterSpacing: 1 },
+  voidState: { borderColor: colors.danger, borderRadius: 12, borderWidth: 1, gap: spacing.sm, padding: spacing.md },
+  voidTitle: { color: colors.danger, fontSize: 20, fontWeight: "800", letterSpacing: 2 },
+  voidReason: { color: colors.text, fontSize: 15 },
+  voidForm: { gap: spacing.md },
 });
