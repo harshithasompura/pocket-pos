@@ -1,6 +1,6 @@
 # PocketPOS
 
-PocketPOS is a practical offline-first Android billing and inventory app for small businesses. This repository contains the foundation release: local business setup, product catalogue management, stock auditing, versioned SQLite migrations, and a five-tab shell ready for billing, receipts, and analytics.
+PocketPOS is a practical offline-first billing and inventory app for small businesses. It combines local business setup, product and stock management, fast checkout, and bill history in one monochrome mobile workflow.
 
 ![PocketPOS mark](assets/pocketpos-mark.png)
 
@@ -17,7 +17,7 @@ PocketPOS is a practical offline-first Android billing and inventory app for sma
 ![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=flat&logo=vitest&logoColor=white)
 ![pnpm](https://img.shields.io/badge/pnpm-F69220?style=flat&logo=pnpm&logoColor=white)
 
-## Foundation features
+## Features
 
 - First-run business and receipt setup
 - Five-tab phone/tablet navigation
@@ -26,11 +26,15 @@ PocketPOS is a practical offline-first Android billing and inventory app for sma
 - Auditable inventory movement history
 - Low-stock filters and warnings
 - Integer-paise currency calculations
+- Product search, cart quantities, and custom line items
+- Fixed or percentage discounts and cash, UPI, card, or other payments
+- Atomic offline checkout with stock validation and automatic inventory deduction
+- Sequential invoice numbers, bill history, and completed bill details
 - Local SQLite source of truth with transactional, versioned migrations
 - Development-only idempotent demo data
 - Android development, preview, and release APK profiles
 
-Billing, printing, PDF sharing, bill history actions, dashboard analytics, and backup/restore are intentionally reserved for later phases.
+Printing, PDF sharing, bill voiding, dashboard analytics, and backup/restore are intentionally reserved for later phases.
 
 ## Requirements
 
@@ -65,6 +69,7 @@ src/components/              shared monochrome UI and branding
 src/db/                      SQLite setup, migrations, repositories
 src/features/setup/          business setup and validation
 src/features/inventory/      product and stock workflows
+src/features/billing/        cart, checkout, and bill history
 src/types/                   domain models
 src/utils/                   currency, dates, IDs, stock rules
 docs/                        architecture and APK guides
@@ -74,7 +79,7 @@ Database queries stay inside repositories. Screen components use repository meth
 
 ## Offline guarantees
 
-Business details, products, stock quantities, and movement history are stored in `pocketpos.db`. Product stock changes are transactional and always create movement records. Installing a newer APK with the same Android package name and signing key preserves the database while migrations apply incrementally.
+Business details, products, stock quantities, movement history, and completed bills are stored in `pocketpos.db`. Checkout validates stock and saves the invoice, item snapshots, stock deductions, and movement records in one transaction. Installing a newer APK with the same Android package name and signing key preserves the database while migrations apply incrementally.
 
 ## Android builds
 
@@ -84,8 +89,12 @@ See [APK_BUILD.md](docs/APK_BUILD.md) for development and release APK instructio
 
 Captured from PocketPOS running locally on an iPhone 15 simulator with offline demo data.
 
-| Setup | Inventory | Product detail |
+| Sell | Bill detail | Inventory |
 | --- | --- | --- |
-| <img src="docs/screenshots/setup.png" alt="PocketPOS business setup" width="260" /> | <img src="docs/screenshots/inventory.png" alt="PocketPOS inventory catalogue" width="260" /> | <img src="docs/screenshots/product-detail.png" alt="PocketPOS product stock detail" width="260" /> |
+| <img src="docs/screenshots/sell.png" alt="PocketPOS new bill screen" width="260" /> | <img src="docs/screenshots/bill-detail.png" alt="PocketPOS completed bill detail" width="260" /> | <img src="docs/screenshots/inventory.png" alt="PocketPOS inventory catalogue" width="260" /> |
+
+| Setup | Product detail |
+| --- | --- |
+| <img src="docs/screenshots/setup.png" alt="PocketPOS business setup" width="260" /> | <img src="docs/screenshots/product-detail.png" alt="PocketPOS product stock detail" width="260" /> |
 
 The [launch screen](docs/screenshots/splash.png) and full capture notes are available in [docs/screenshots](docs/screenshots/README.md).
