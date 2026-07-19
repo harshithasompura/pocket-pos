@@ -22,6 +22,7 @@ export const RootLayout = () => (
         <Stack.Screen name="product/new" options={{ title: "Add product" }} />
         <Stack.Screen name="product/[id]" options={{ title: "Product details" }} />
         <Stack.Screen name="product/[id]/edit" options={{ title: "Edit product" }} />
+        <Stack.Screen name="bill/[id]" options={{ title: "Bill details" }} />
       </Stack>
     </DatabaseProvider>
   </>
