@@ -30,11 +30,13 @@ PocketPOS is a practical offline-first billing and inventory app for small busin
 - Fixed or percentage discounts and cash, UPI, card, or other payments
 - Atomic offline checkout with stock validation and automatic inventory deduction
 - Sequential invoice numbers, bill history, and completed bill details
+- Monochrome 58 mm and 80 mm thermal receipt rendering
+- System receipt printing plus locally generated, shareable bill PDFs
 - Local SQLite source of truth with transactional, versioned migrations
 - Development-only idempotent demo data
 - Android development, preview, and release APK profiles
 
-Printing, PDF sharing, bill voiding, dashboard analytics, and backup/restore are intentionally reserved for later phases.
+Direct ESC/POS printer integration, bill voiding, dashboard analytics, and backup/restore are intentionally reserved for later phases.
 
 ## Requirements
 
@@ -89,9 +91,9 @@ See [APK_BUILD.md](docs/APK_BUILD.md) for development and release APK instructio
 
 Captured from PocketPOS running locally on an iPhone 15 simulator with offline demo data.
 
-| Sell | Bill detail | Inventory |
+| Sell | Receipt actions | Inventory |
 | --- | --- | --- |
-| <img src="docs/screenshots/sell.png" alt="PocketPOS new bill screen" width="260" /> | <img src="docs/screenshots/bill-detail.png" alt="PocketPOS completed bill detail" width="260" /> | <img src="docs/screenshots/inventory.png" alt="PocketPOS inventory catalogue" width="260" /> |
+| <img src="docs/screenshots/sell.png" alt="PocketPOS new bill screen" width="260" /> | <img src="docs/screenshots/receipt-actions.png" alt="PocketPOS receipt print and PDF actions" width="260" /> | <img src="docs/screenshots/inventory.png" alt="PocketPOS inventory catalogue" width="260" /> |
 
 | Setup | Product detail |
 | --- | --- |
