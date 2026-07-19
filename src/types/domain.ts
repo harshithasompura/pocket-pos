@@ -43,3 +43,8 @@ export type InventoryMovement = {
   note: string | null;
   createdAt: string;
 };
+
+export type PaymentMethod = "cash" | "upi" | "card" | "other";
+export type BillStatus = "completed" | "void";
+export type Bill = { id: string; businessId: string; billNumber: string; subtotalPaise: number; discountPaise: number; taxPaise: number; totalPaise: number; totalUnits: number; paymentMethod: PaymentMethod; status: BillStatus; printStatus: string; pdfUri: string | null; voidReason: string | null; createdAt: string; voidedAt: string | null };
+export type BillItem = { id: string; billId: string; productId: string | null; name: string; sku: string | null; quantity: number; unitPricePaise: number; lineTotalPaise: number; affectsInventory: boolean; createdAt: string };
