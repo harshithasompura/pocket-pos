@@ -1,0 +1,14 @@
+import type { SQLiteDatabase } from "expo-sqlite";
+import { mapBill, type BillRow } from "@/src/db/repositories/repository-mappers";
+import { fillPaymentTotals, fillSalesDays } from "./dashboard-range";
+import type { DashboardAnalytics, DashboardRangeDefinition, LowStockProduct, PaymentTotal, ProductSales, SalesDay } from "./analytics-types";
+type Summary={totalSalesPaise:number|null;billCount:number|null;totalUnits:number|null};
+export const createAnalyticsRepository=(db:SQLiteDatabase)=>({async getDashboardAnalytics(d:DashboardRangeDefinition):Promise<DashboardAnalytics>{const args=[d.startIso,d.endIso]; const [s,days,payments,top,recent,lowCount,low]=await Promise.all([
+db.getFirstAsync<Summary>("SELECT SUM(total_paise) totalSalesPaise, COUNT(*) billCount, SUM(total_units) totalUnits FROM bills b WHERE b.status = 'completed' AND b.created_at >= ? AND b.created_at < ?",...args),
+db.getAllAsync<SalesDay>("SELECT date(created_at,'localtime') date, SUM(total_paise) salesPaise FROM bills b WHERE b.status = 'completed' AND b.created_at >= ? AND b.created_at < ? GROUP BY date(created_at,'localtime')",...args),
+db.getAllAsync<PaymentTotal>("SELECT payment_method method, SUM(total_paise) salesPaise FROM bills b WHERE b.status = 'completed' AND b.created_at >= ? AND b.created_at < ? GROUP BY payment_method",...args),
+db.getAllAsync<ProductSales>("SELECT COALESCE(bi.product_id,bi.product_name_snapshot) key, bi.product_id productId, bi.product_name_snapshot name, SUM(bi.quantity) units, SUM(bi.line_total_paise) revenuePaise FROM bill_items bi JOIN bills b ON b.id=bi.bill_id WHERE b.status = 'completed' AND b.created_at >= ? AND b.created_at < ? GROUP BY key,bi.product_id,bi.product_name_snapshot ORDER BY units DESC,revenuePaise DESC LIMIT 5",...args),
+db.getAllAsync<BillRow>("SELECT * FROM bills b WHERE b.status = 'completed' AND b.created_at >= ? AND b.created_at < ? ORDER BY created_at DESC LIMIT 5",...args),
+db.getFirstAsync<{count:number}>("SELECT COUNT(*) count FROM products WHERE is_active=1 AND track_inventory=1 AND stock_quantity<=low_stock_threshold"),
+db.getAllAsync<LowStockProduct>("SELECT id,name,stock_quantity stockQuantity,low_stock_threshold lowStockThreshold FROM products WHERE is_active=1 AND track_inventory=1 AND stock_quantity<=low_stock_threshold ORDER BY stock_quantity LIMIT 5")
+]); const total=Number(s?.totalSalesPaise??0), count=Number(s?.billCount??0); return {totalSalesPaise:total,billCount:count,totalUnits:Number(s?.totalUnits??0),averageBillPaise:count?Math.round(total/count):0,lowStockCount:Number(lowCount?.count??0),salesByDay:fillSalesDays(d,days),payments:fillPaymentTotals(payments),topProducts:top.map(x=>({...x,units:Number(x.units),revenuePaise:Number(x.revenuePaise)})),recentBills:recent.map(mapBill),lowStockProducts:low};}});
