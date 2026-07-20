@@ -6,7 +6,7 @@ import { Button } from "@/src/components/ui/button";
 import { Card } from "@/src/components/ui/card";
 import { Field } from "@/src/components/ui/field";
 import { Screen } from "@/src/components/ui/screen";
-import { colors, spacing } from "@/src/constants/theme";
+import { colors, radius, spacing } from "@/src/constants/theme";
 import { useDatabaseReady } from "@/src/db/database-provider";
 import { createBillRepository } from "@/src/db/repositories/bill-repository";
 import { voidBill } from "./bill-void-service";
@@ -126,10 +126,10 @@ export const BillDetailScreen = ({ id }: { id: string }) => {
 };
 
 const styles = StyleSheet.create({
-  screen: { gap: spacing.lg },
+  screen: { gap: spacing.xl },
   title: { color: colors.text, fontSize: 32, fontWeight: "800" },
   meta: { color: colors.muted, fontSize: 13, lineHeight: 19, marginTop: spacing.xs },
-  items: { gap: spacing.lg },
+  items: { gap: spacing.md },
   item: { alignItems: "center", flexDirection: "row", gap: spacing.md },
   flex: { flex: 1 },
   itemName: { fontSize: 16, fontWeight: "700" },
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   total: { fontSize: 22, fontWeight: "800" },
   status: { borderTopColor: colors.border, borderTopWidth: 1, color: colors.muted, fontSize: 12, fontWeight: "700", letterSpacing: 1, paddingTop: spacing.md },
   outputStatus: { color: colors.text, fontSize: 12, fontWeight: "800", letterSpacing: 1 },
-  voidState: { borderColor: colors.danger, borderRadius: 12, borderWidth: 1, gap: spacing.sm, padding: spacing.md },
+  voidState: { borderColor: colors.danger, borderRadius: radius.md, borderWidth: 1, gap: spacing.sm, padding: spacing.md },
   voidTitle: { color: colors.danger, fontSize: 20, fontWeight: "800", letterSpacing: 2 },
   voidReason: { color: colors.text, fontSize: 15 },
   voidForm: { gap: spacing.md },

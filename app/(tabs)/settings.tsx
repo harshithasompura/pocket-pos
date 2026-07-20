@@ -88,8 +88,10 @@ export const SettingsScreen = () => {
 
   return (
     <Screen scroll style={styles.screen}>
-      <Text style={styles.title}>Business settings</Text>
-      <Text style={styles.body}>Receipt and billing defaults stay on this device.</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>Business settings</Text>
+        <Text style={styles.body}>Receipt and billing defaults stay on this device.</Text>
+      </View>
       <Card style={styles.backupCard}>
         <View style={styles.cardCopy}>
           <Text style={styles.cardTitle}>Data backup</Text>
@@ -105,13 +107,14 @@ export const SettingsScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  backupCard: { gap: spacing.md, marginTop: spacing.md },
-  body: { color: colors.muted, fontSize: 16, lineHeight: 24, marginBottom: spacing.md },
+  backupCard: { gap: spacing.lg },
+  body: { color: colors.muted, fontSize: 16, lineHeight: 24 },
   cardBody: { color: colors.muted, fontSize: 15, lineHeight: 22 },
   cardCopy: { gap: spacing.xs },
   cardTitle: { color: colors.text, fontSize: 20, fontWeight: "800" },
   center: { justifyContent: "center" },
-  screen: { gap: spacing.md },
+  header: { gap: spacing.xs },
+  screen: { gap: spacing.xl },
   title: { color: colors.text, fontSize: 30, fontWeight: "800" },
 });
 

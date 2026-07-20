@@ -23,7 +23,7 @@ export const Field = forwardRef<TextInput, FieldProps>(({ label, error, hint, st
 Field.displayName = "Field";
 
 const styles = StyleSheet.create({
-  group: { gap: spacing.md },
+  group: { gap: spacing.sm },
   label: { color: colors.text, fontSize: 14, fontWeight: "700" },
   input: { backgroundColor: colors.surface, borderColor: colors.border, borderRadius: radius.md, borderWidth: 1, color: colors.text, fontSize: 16, minHeight: 52, paddingHorizontal: spacing.md, paddingVertical: spacing.sm },
   inputError: { borderColor: colors.danger },

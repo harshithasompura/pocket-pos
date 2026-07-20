@@ -25,8 +25,10 @@ export const BusinessForm = ({ initial, submitLabel, onSubmit }: BusinessFormPro
       <Controller control={control} name="phone" render={({ field }) => <Field label="Phone" value={field.value} onChangeText={field.onChange} keyboardType="phone-pad" style={styles.flex} />} />
       <Controller control={control} name="gstNumber" render={({ field }) => <Field label="GST number (optional)" value={field.value} onChangeText={field.onChange} autoCapitalize="characters" style={styles.flex} />} />
     </View>
-    <Text style={styles.label}>Receipt width</Text>
-    <Controller control={control} name="receiptWidth" render={({ field }) => <View style={styles.segmented}>{([58, 80] as const).map((width) => <Pressable key={width} onPress={() => field.onChange(width)} style={[styles.segment, field.value === width && styles.segmentActive]}><Text style={[styles.segmentText, field.value === width && styles.segmentTextActive]}>{width} mm</Text></Pressable>)}</View>} />
+    <View style={styles.fieldGroup}>
+      <Text style={styles.label}>Receipt width</Text>
+      <Controller control={control} name="receiptWidth" render={({ field }) => <View style={styles.segmented}>{([58, 80] as const).map((width) => <Pressable key={width} onPress={() => field.onChange(width)} style={[styles.segment, field.value === width && styles.segmentActive]}><Text style={[styles.segmentText, field.value === width && styles.segmentTextActive]}>{width} mm</Text></Pressable>)}</View>} />
+    </View>
     <Controller control={control} name="receiptFooter" render={({ field }) => <Field label="Receipt footer" value={field.value} onChangeText={field.onChange} />} />
     <Controller control={control} name="inventoryTrackingEnabled" render={({ field }) => <View style={styles.toggle}><View style={styles.flex}><Text style={styles.label}>Track inventory</Text><Text style={styles.hint}>Create movement logs for every stock change.</Text></View><Switch value={field.value} onValueChange={field.onChange} trackColor={{ false: colors.border, true: colors.text }} /></View>} />
     <Controller control={control} name="taxEnabled" render={({ field }) => <View style={styles.toggle}><View style={styles.flex}><Text style={styles.label}>Enable tax</Text><Text style={styles.hint}>Add a default tax percentage to future bills.</Text></View><Switch value={field.value} onValueChange={field.onChange} trackColor={{ false: colors.border, true: colors.text }} /></View>} />
@@ -36,7 +38,7 @@ export const BusinessForm = ({ initial, submitLabel, onSubmit }: BusinessFormPro
 };
 
 const styles = StyleSheet.create({
-  form: { gap: spacing.xl }, row: { flexDirection: "row", flexWrap: "wrap", gap: spacing.lg }, flex: { flex: 1, minWidth: 180 },
+  form: { gap: spacing.xl }, row: { flexDirection: "row", flexWrap: "wrap", gap: spacing.lg }, flex: { flex: 1, minWidth: 180 }, fieldGroup: { gap: spacing.sm },
   label: { color: colors.text, fontSize: 14, fontWeight: "700" }, hint: { color: colors.muted, fontSize: 13, marginTop: spacing.xs },
   segmented: { backgroundColor: colors.surface, borderColor: colors.border, borderRadius: radius.md, borderWidth: 1, flexDirection: "row", padding: spacing.xs },
   segment: { alignItems: "center", borderRadius: radius.sm, flex: 1, minHeight: 44, justifyContent: "center" }, segmentActive: { backgroundColor: colors.text },
