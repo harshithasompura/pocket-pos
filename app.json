@@ -8,11 +8,11 @@
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.nodori.pocketpos",
+      "bundleIdentifier": "com.harshithasompura.pocketpos",
       "buildNumber": "1"
     },
     "android": {
-      "package": "com.nodori.pocketpos",
+      "package": "com.harshithasompura.pocketpos",
       "versionCode": 1,
       "adaptiveIcon": {
         "backgroundColor": "#FFFFFF",
