@@ -1,8 +1,58 @@
 # PocketPOS
 
-PocketPOS is a practical offline-first billing and inventory app for small businesses. It combines local business setup, product and stock management, fast checkout, and bill history in one monochrome mobile workflow.
+<p align="center">
+  <img src="assets/pocketpos-mark.png" alt="PocketPOS mark" width="96" />
+</p>
 
-![PocketPOS mark](assets/pocketpos-mark.png)
+An offline-first Point of Sale application built with React Native, Expo, and SQLite.
+
+PocketPOS explores how a mobile system can provide transaction-safe local persistence, layered architecture, and reliable billing without requiring a backend.
+
+PocketPOS works entirely offline while providing:
+
+- Billing
+- Inventory
+- Analytics
+- Receipt generation
+- Backup & Restore
+
+**Designed for reliability over connectivity.**
+
+## Highlights
+
+- Offline-first mobile application
+- SQLite as the single source of truth
+- Transactional checkout and inventory updates
+- Native receipt generation
+- Local analytics powered by SQLite
+
+## Why I built this
+
+PocketPOS was built to explore how a modern mobile application can deliver reliable billing without depending on cloud connectivity. The project focuses on transactional integrity, offline-first design, and a maintainable layered architecture using React Native and SQLite.
+
+## Architecture
+
+```text
+Expo Router
+     ↓
+Feature Screens
+     ↓
+Services
+     ↓
+Repositories
+     ↓
+SQLite
+```
+
+Full detail, including the routing and printing boundaries, is in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+
+## Design principles
+
+- Offline-first
+- Transactional consistency
+- Monochrome UI
+- Simple deployment
+- No backend required
 
 ## Built with
 
@@ -19,35 +69,43 @@ PocketPOS is a practical offline-first billing and inventory app for small busin
 
 ## Features
 
-- First-run business and receipt setup
-- Five-tab phone/tablet navigation
+**Billing**
+
+- Product search, cart quantities, and custom line items with integer-paise currency calculations
+- Offline checkout with stock validation and automatic inventory deduction
+- Fixed or percentage discounts, cash/UPI/card/other payments
+- Sequential invoice numbers, bill history, and completed bill details
+- Monochrome 58 mm / 80 mm receipt rendering plus shareable bill PDFs
+- Auditable bill voiding with transactional stock restoration
+
+**Inventory**
+
 - Product creation, editing, search, and enable/disable workflow
 - Opening stock and manual stock adjustments
 - Auditable inventory movement history
 - Low-stock filters and warnings
-- Integer-paise currency calculations
-- Product search, cart quantities, and custom line items
-- Fixed or percentage discounts and cash, UPI, card, or other payments
-- Atomic offline checkout with stock validation and automatic inventory deduction
-- Sequential invoice numbers, bill history, and completed bill details
-- Monochrome 58 mm and 80 mm thermal receipt rendering
-- System receipt printing plus locally generated, shareable bill PDFs
-- Offline Today, 7-day, and 30-day sales analytics with native charts
-- Payment totals, top products, recent bills, and low-stock dashboard summaries
-- Auditable bill voiding with transactional stock restoration
+
+**Analytics**
+
+- Offline Today, 7-day, and 30-day sales dashboard with native charts
+- Top products and payment totals
+- Recent bills and low-stock summaries
+
+**Reliability**
+
+- Atomic transactions for checkout, voiding, and stock adjustments
 - Versioned JSON backup, native sharing, validation, and atomic full restore
 - Local SQLite source of truth with transactional, versioned migrations
-- Development-only idempotent demo data
-- Android development, preview, and release APK profiles
+- First-run business and receipt setup, five-tab phone/tablet navigation
+- Development-only idempotent demo data, native Android APK builds via Expo Application Services
 
-Direct ESC/POS printer integration is intentionally reserved for a later phase; PocketPOS currently prints through the device system print sheet.
+Direct ESC/POS printer integration is intentionally reserved for a later phase; PocketPOS currently prints through the device system print sheet and HTML-rendered receipts.
 
 ## Requirements
 
 - Node.js 20+
 - pnpm 10+
 - Android Studio and an Android emulator, or an Android device with Expo Go
-- An Expo account only when creating cloud APK builds
 
 ## Run locally
 
@@ -82,7 +140,7 @@ src/utils/                   currency, dates, IDs, stock rules
 docs/                        architecture and APK guides
 ```
 
-Database queries stay inside repositories. Screen components use repository methods and never issue SQL directly.
+Most data access is encapsulated in repositories; transaction-oriented services (billing, backup, receipts) coordinate SQL that spans multiple entities. Screen components never issue SQL directly.
 
 ## Offline guarantees
 
@@ -96,16 +154,12 @@ See [APK_BUILD.md](docs/APK_BUILD.md) for development and release APK instructio
 
 Captured from PocketPOS running locally on an iPhone 15 simulator with offline demo data.
 
-| Sell                                                                                | Dashboard                                                                                        | Voided bill                                                                                        |
-| ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
-| <img src="docs/screenshots/sell.png" alt="PocketPOS new bill screen" width="260" /> | <img src="docs/screenshots/dashboard.png" alt="PocketPOS offline sales dashboard" width="260" /> | <img src="docs/screenshots/voided-bill.png" alt="PocketPOS voided bill with reason" width="260" /> |
+| Checkout                                                                            | Dashboard                                                                                        | Inventory                                                                                    |
+| ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- |
+| <img src="docs/screenshots/sell.png" alt="PocketPOS new bill screen" width="260" /> | <img src="docs/screenshots/dashboard.png" alt="PocketPOS offline sales dashboard" width="260" /> | <img src="docs/screenshots/inventory.png" alt="PocketPOS inventory catalogue" width="260" /> |
 
-| Inventory                                                                                    | Setup                                                                               | Product detail                                                                                     |
-| -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| <img src="docs/screenshots/inventory.png" alt="PocketPOS inventory catalogue" width="260" /> | <img src="docs/screenshots/setup.png" alt="PocketPOS business setup" width="260" /> | <img src="docs/screenshots/product-detail.png" alt="PocketPOS product stock detail" width="260" /> |
-
-| Data backup                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------ |
-| <img src="docs/screenshots/settings-backup.png" alt="PocketPOS portable data backup controls" width="260" /> |
+| Voided bill                                                                                        | Setup                                                                               | Backup                                                                                                       |
+| -------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| <img src="docs/screenshots/voided-bill.png" alt="PocketPOS voided bill with reason" width="260" /> | <img src="docs/screenshots/setup.png" alt="PocketPOS business setup" width="260" /> | <img src="docs/screenshots/settings-backup.png" alt="PocketPOS portable data backup controls" width="260" /> |
 
 The [launch screen](docs/screenshots/splash.png) and full capture notes are available in [docs/screenshots](docs/screenshots/README.md).
