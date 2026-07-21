@@ -96,16 +96,16 @@ See [APK_BUILD.md](docs/APK_BUILD.md) for development and release APK instructio
 
 Captured from PocketPOS running locally on an iPhone 15 simulator with offline demo data.
 
-| Sell | Dashboard | Voided bill |
-| --- | --- | --- |
+| Sell                                                                                | Dashboard                                                                                        | Voided bill                                                                                        |
+| ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
 | <img src="docs/screenshots/sell.png" alt="PocketPOS new bill screen" width="260" /> | <img src="docs/screenshots/dashboard.png" alt="PocketPOS offline sales dashboard" width="260" /> | <img src="docs/screenshots/voided-bill.png" alt="PocketPOS voided bill with reason" width="260" /> |
 
-| Inventory | Setup | Product detail |
-| --- | --- | --- |
+| Inventory                                                                                    | Setup                                                                               | Product detail                                                                                     |
+| -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | <img src="docs/screenshots/inventory.png" alt="PocketPOS inventory catalogue" width="260" /> | <img src="docs/screenshots/setup.png" alt="PocketPOS business setup" width="260" /> | <img src="docs/screenshots/product-detail.png" alt="PocketPOS product stock detail" width="260" /> |
 
-| Data backup |
-| --- |
+| Data backup                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------ |
 | <img src="docs/screenshots/settings-backup.png" alt="PocketPOS portable data backup controls" width="260" /> |
 
 The [launch screen](docs/screenshots/splash.png) and full capture notes are available in [docs/screenshots](docs/screenshots/README.md).

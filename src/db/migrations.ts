@@ -1,9 +1,10 @@
 export type Migration = { version: number; name: string; sql: string };
 
-export const migrations: Migration[] = [{
-  version: 1,
-  name: "foundation",
-  sql: `
+export const migrations: Migration[] = [
+  {
+    version: 1,
+    name: "foundation",
+    sql: `
     CREATE TABLE IF NOT EXISTS schema_migrations (version INTEGER PRIMARY KEY, name TEXT NOT NULL, applied_at TEXT NOT NULL);
     CREATE TABLE IF NOT EXISTS businesses (
       id TEXT PRIMARY KEY, name TEXT NOT NULL, address TEXT, phone TEXT, gst_number TEXT,
@@ -43,4 +44,5 @@ export const migrations: Migration[] = [{
     CREATE INDEX IF NOT EXISTS idx_bills_created_at ON bills(created_at DESC);
     CREATE INDEX IF NOT EXISTS idx_inventory_movements_product ON inventory_movements(product_id, created_at DESC);
   `,
-}];
+  },
+];

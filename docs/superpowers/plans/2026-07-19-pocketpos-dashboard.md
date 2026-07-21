@@ -25,11 +25,13 @@
 ### Task 1: Range and Analytics Types
 
 **Files:**
+
 - Create: `src/features/analytics/analytics-types.ts`
 - Create: `src/features/analytics/dashboard-range.ts`
 - Test: `src/features/analytics/dashboard-range.test.ts`
 
 **Interfaces:**
+
 - Produces the exact `DashboardRange`, `DashboardRangeDefinition`, `SalesDay`, `PaymentTotal`, `ProductSales`, `LowStockProduct`, and `DashboardAnalytics` types from the approved spec.
 - Produces `getDashboardRange(range: DashboardRange, now?: Date): DashboardRangeDefinition`.
 - Produces `fillSalesDays(definition, rows): SalesDay[]` and `fillPaymentTotals(rows): PaymentTotal[]`.
@@ -77,10 +79,12 @@ git commit -m "feat: add dashboard range foundation"
 ### Task 2: SQLite Analytics Repository
 
 **Files:**
+
 - Create: `src/features/analytics/analytics-repository.ts`
 - Test: `src/features/analytics/analytics-repository.test.ts`
 
 **Interfaces:**
+
 - Consumes: `DashboardRangeDefinition`, `fillSalesDays`, `fillPaymentTotals`, bill mappers.
 - Produces: `createAnalyticsRepository(db).getDashboardAnalytics(definition): Promise<DashboardAnalytics>`.
 
@@ -89,6 +93,7 @@ git commit -m "feat: add dashboard range foundation"
 Use a typed fake `SQLiteDatabase` that routes `getFirstAsync` and `getAllAsync` by query marker and records arguments. Return aggregate rows containing completed data, product/custom-item rankings, recent bill rows, and low-stock rows.
 
 Assert:
+
 - totals normalize nulls and average rounds to integer paise;
 - daily gaps and payment methods are filled;
 - top products, recent bills, and low-stock values map correctly;
@@ -117,6 +122,7 @@ Expected: FAIL because the repository is missing.
 - [ ] **Step 3: Implement parameterized aggregate queries**
 
 Run the following independent reads with `Promise.all`:
+
 - summary from `bills`;
 - daily totals grouped by `date(created_at, 'localtime')`;
 - payment totals grouped by `payment_method`;
@@ -143,10 +149,12 @@ git commit -m "feat: add offline analytics queries"
 ### Task 3: Dashboard UI
 
 **Files:**
+
 - Create: `src/features/analytics/dashboard-screen.tsx`
 - Modify: `app/(tabs)/dashboard.tsx`
 
 **Interfaces:**
+
 - Consumes: `getDashboardRange`, `createAnalyticsRepository`, `DashboardAnalytics`.
 - Produces: a focus-aware, range-selectable, responsive dashboard.
 
@@ -156,15 +164,26 @@ Keep `range`, `analytics`, `loading`, and `error` state. A memoized `load` build
 
 ```ts
 const definition = useMemo(() => getDashboardRange(range), [range]);
-useFocusEffect(useCallback(() => {
-  let active = true;
-  setLoading(true);
-  createAnalyticsRepository(db).getDashboardAnalytics(definition)
-    .then((value) => { if (active) setAnalytics(value); })
-    .catch(() => { if (active) setError("Dashboard could not be loaded."); })
-    .finally(() => { if (active) setLoading(false); });
-  return () => { active = false; };
-}, [db, definition]));
+useFocusEffect(
+  useCallback(() => {
+    let active = true;
+    setLoading(true);
+    createAnalyticsRepository(db)
+      .getDashboardAnalytics(definition)
+      .then((value) => {
+        if (active) setAnalytics(value);
+      })
+      .catch(() => {
+        if (active) setError("Dashboard could not be loaded.");
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, [db, definition]),
+);
 ```
 
 - [ ] **Step 2: Add title, range pills, and responsive summary cards**
@@ -201,11 +220,13 @@ git commit -m "feat: add offline sales dashboard"
 ### Task 4: Simulator QA and Documentation
 
 **Files:**
+
 - Modify: `README.md`
 - Modify: `docs/screenshots/README.md`
 - Create: `docs/screenshots/dashboard.png`
 
 **Interfaces:**
+
 - Consumes: completed dashboard and simulator demo data.
 - Produces: real visual evidence and current project documentation.
 
@@ -237,4 +258,3 @@ Expected: clean diff, all tests PASS, static checks exit 0, Android export succe
 git add README.md docs/screenshots/README.md docs/screenshots/dashboard.png
 git commit -m "docs: document offline dashboard"
 ```
-

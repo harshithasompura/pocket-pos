@@ -1,4 +1,46 @@
-import { router, useLocalSearchParams } from "expo-router"; import { useEffect, useState } from "react"; import { StyleSheet, Text, View } from "react-native";
-import { Screen } from "@/src/components/ui/screen"; import { colors, spacing } from "@/src/constants/theme"; import { useDatabaseReady } from "@/src/db/database-provider"; import { createProductRepository } from "@/src/db/repositories/product-repository"; import { ProductForm } from "@/src/features/inventory/product-form"; import type { ProductValues } from "@/src/features/inventory/product-schema"; import type { Product } from "@/src/types/domain";
-export const EditProductScreen = () => { const { id } = useLocalSearchParams<{ id: string }>(); const { db } = useDatabaseReady(); const [product, setProduct] = useState<Product | null>(null); useEffect(() => { createProductRepository(db).get(id).then(setProduct); }, [db, id]); if (!product) return <Screen><Text>Loading product…</Text></Screen>; const save = async (values: ProductValues) => { await createProductRepository(db).update(id, values); router.back(); }; return <Screen scroll style={styles.screen}><View style={styles.header}><Text style={styles.title}>Edit product</Text><Text style={styles.body}>Use a stock adjustment for quantity changes so the audit log remains complete.</Text></View><ProductForm product={product} onSubmit={save} /></Screen>; };
-const styles = StyleSheet.create({ screen: { gap: spacing.xl }, header: { gap: spacing.xs }, title: { color: colors.text, fontSize: 30, fontWeight: "800" }, body: { color: colors.muted, fontSize: 15 } }); export default EditProductScreen;
+import { router, useLocalSearchParams } from "expo-router";
+import { useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { Screen } from "@/src/components/ui/screen";
+import { colors, spacing } from "@/src/constants/theme";
+import { useDatabaseReady } from "@/src/db/database-provider";
+import { createProductRepository } from "@/src/db/repositories/product-repository";
+import { ProductForm } from "@/src/features/inventory/product-form";
+import type { ProductValues } from "@/src/features/inventory/product-schema";
+import type { Product } from "@/src/types/domain";
+export const EditProductScreen = () => {
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const { db } = useDatabaseReady();
+  const [product, setProduct] = useState<Product | null>(null);
+  useEffect(() => {
+    createProductRepository(db).get(id).then(setProduct);
+  }, [db, id]);
+  if (!product)
+    return (
+      <Screen>
+        <Text>Loading product…</Text>
+      </Screen>
+    );
+  const save = async (values: ProductValues) => {
+    await createProductRepository(db).update(id, values);
+    router.back();
+  };
+  return (
+    <Screen scroll style={styles.screen}>
+      <View style={styles.header}>
+        <Text style={styles.title}>Edit product</Text>
+        <Text style={styles.body}>
+          Use a stock adjustment for quantity changes so the audit log remains complete.
+        </Text>
+      </View>
+      <ProductForm product={product} onSubmit={save} />
+    </Screen>
+  );
+};
+const styles = StyleSheet.create({
+  screen: { gap: spacing.xl },
+  header: { gap: spacing.xs },
+  title: { color: colors.text, fontSize: 30, fontWeight: "800" },
+  body: { color: colors.muted, fontSize: 15 },
+});
+export default EditProductScreen;

@@ -49,9 +49,13 @@ export const createReceiptService = (db: SQLiteDatabase, adapters: ReceiptAdapte
     async shareBillPdf(billId: string): Promise<string> {
       const bill = await bills.get(billId);
       if (!bill) throw new Error("Bill was not found.");
-      const uri = bill.pdfUri ?? await createBillPdf(billId);
-      if (!await adapters.isSharingAvailableAsync()) throw new Error("Sharing is not available on this device.");
-      await adapters.shareAsync(uri, { mimeType: "application/pdf", dialogTitle: `Share ${bill.billNumber}` });
+      const uri = bill.pdfUri ?? (await createBillPdf(billId));
+      if (!(await adapters.isSharingAvailableAsync()))
+        throw new Error("Sharing is not available on this device.");
+      await adapters.shareAsync(uri, {
+        mimeType: "application/pdf",
+        dialogTitle: `Share ${bill.billNumber}`,
+      });
       return uri;
     },
   };

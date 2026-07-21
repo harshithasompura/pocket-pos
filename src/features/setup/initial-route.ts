@@ -1,1 +1,2 @@
-export const getInitialRoute = (hasBusiness: boolean): "/setup" | "/(tabs)" => hasBusiness ? "/(tabs)" : "/setup";
+export const getInitialRoute = (hasBusiness: boolean): "/setup" | "/(tabs)" =>
+  hasBusiness ? "/(tabs)" : "/setup";

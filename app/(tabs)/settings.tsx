@@ -9,32 +9,53 @@ import { useDatabaseReady } from "@/src/db/database-provider";
 import { createBusinessRepository } from "@/src/db/repositories/business-repository";
 import { seedDemoData } from "@/src/db/seed";
 import { restoreBackup } from "@/src/features/backup/backup-service";
-import { exportAndShareBackup, pickAndReadBackup } from "@/src/features/backup/native-backup-service";
+import {
+  exportAndShareBackup,
+  pickAndReadBackup,
+} from "@/src/features/backup/native-backup-service";
 import type { BackupV1 } from "@/src/features/backup/backup-types";
 import { BusinessForm } from "@/src/features/setup/business-form";
 import type { BusinessValues } from "@/src/features/setup/business-schema";
 import type { Business } from "@/src/types/domain";
 
-const errorMessage = (error: unknown) => error instanceof Error ? error.message : "Something went wrong. Please try again.";
+const errorMessage = (error: unknown) =>
+  error instanceof Error ? error.message : "Something went wrong. Please try again.";
 
 export const SettingsScreen = () => {
   const { db } = useDatabaseReady();
   const [business, setBusiness] = useState<Business | null>(null);
   const [backupAction, setBackupAction] = useState<"export" | "restore" | null>(null);
 
-  useEffect(() => { createBusinessRepository(db).get().then(setBusiness); }, [db]);
+  useEffect(() => {
+    createBusinessRepository(db).get().then(setBusiness);
+  }, [db]);
 
-  if (!business) return <Screen style={styles.center}><ActivityIndicator color={colors.text} /></Screen>;
+  if (!business)
+    return (
+      <Screen style={styles.center}>
+        <ActivityIndicator color={colors.text} />
+      </Screen>
+    );
 
   const save = async (values: BusinessValues) => {
     setBusiness(await createBusinessRepository(db).save(values));
     Alert.alert("Saved", "Business settings updated.");
   };
 
-  const seed = () => Alert.alert("Add demo products?", "Demo data is added only when the catalogue is empty.", [
-    { text: "Cancel", style: "cancel" },
-    { text: "Add demo data", onPress: async () => { const result = await seedDemoData(db); Alert.alert(result.created ? "Demo data added" : "Catalogue unchanged", result.created ? `${result.created} products created.` : "Products already exist."); } },
-  ]);
+  const seed = () =>
+    Alert.alert("Add demo products?", "Demo data is added only when the catalogue is empty.", [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Add demo data",
+        onPress: async () => {
+          const result = await seedDemoData(db);
+          Alert.alert(
+            result.created ? "Demo data added" : "Catalogue unchanged",
+            result.created ? `${result.created} products created.` : "Products already exist.",
+          );
+        },
+      },
+    ]);
 
   const exportBackup = async () => {
     setBackupAction("export");
@@ -63,7 +84,10 @@ export const SettingsScreen = () => {
           setBackupAction("restore");
           try {
             await restoreBackup(db, backup);
-            Alert.alert("Restore complete", "Close and reopen PocketPOS to load the restored data.");
+            Alert.alert(
+              "Restore complete",
+              "Close and reopen PocketPOS to load the restored data.",
+            );
           } catch (error) {
             Alert.alert("Restore failed", errorMessage(error));
           } finally {
@@ -95,12 +119,35 @@ export const SettingsScreen = () => {
       <Card style={styles.backupCard}>
         <View style={styles.cardCopy}>
           <Text style={styles.cardTitle}>Data backup</Text>
-          <Text style={styles.cardBody}>Save a portable copy of your business, products, bills, and stock history.</Text>
+          <Text style={styles.cardBody}>
+            Save a portable copy of your business, products, bills, and stock history.
+          </Text>
         </View>
-        <Button label="Export & share backup" loading={backupAction === "export"} disabled={backupAction !== null} onPress={exportBackup} />
-        <Button label="Restore backup" loading={backupAction === "restore"} disabled={backupAction !== null} variant="secondary" onPress={chooseBackup} />
+        <Button
+          label="Export & share backup"
+          loading={backupAction === "export"}
+          disabled={backupAction !== null}
+          onPress={exportBackup}
+        />
+        <Button
+          label="Restore backup"
+          loading={backupAction === "restore"}
+          disabled={backupAction !== null}
+          variant="secondary"
+          onPress={chooseBackup}
+        />
       </Card>
-      <BusinessForm initial={{ ...business, address: business.address ?? "", phone: business.phone ?? "", gstNumber: business.gstNumber ?? "", receiptFooter: business.receiptFooter ?? "" }} submitLabel="Save changes" onSubmit={save} />
+      <BusinessForm
+        initial={{
+          ...business,
+          address: business.address ?? "",
+          phone: business.phone ?? "",
+          gstNumber: business.gstNumber ?? "",
+          receiptFooter: business.receiptFooter ?? "",
+        }}
+        submitLabel="Save changes"
+        onSubmit={save}
+      />
       {__DEV__ && <Button label="Add demo products" variant="secondary" onPress={seed} />}
     </Screen>
   );

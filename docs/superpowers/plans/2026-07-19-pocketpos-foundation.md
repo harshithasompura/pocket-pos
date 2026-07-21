@@ -38,11 +38,13 @@
 ### Task 1: Expo Scaffold and Test Harness
 
 **Files:**
+
 - Create: `package.json`, `app.json`, `eas.json`, `tsconfig.json`, `eslint.config.js`, `vitest.config.ts`, `.gitignore`
 - Create: `app/_layout.tsx`, `app/index.tsx`
 - Create: `src/constants/theme.ts`, `src/utils/currency.ts`, `src/utils/currency.test.ts`
 
 **Interfaces:**
+
 - Produces: `formatCurrency(paise: number, currency?: string): string`
 - Produces: runnable `pnpm test`, `pnpm typecheck`, `pnpm lint`, and `pnpm export` scripts.
 
@@ -82,12 +84,14 @@ Commit: `chore: scaffold pocketpos app`
 ### Task 2: Brand Assets and UI Foundation
 
 **Files:**
+
 - Create: `assets/icon.png`, `assets/adaptive-icon.png`, `assets/splash-icon.png`, `assets/pocketpos-mark.png`
 - Create: `src/components/brand/pocketpos-logo.tsx`
 - Create: `src/components/ui/button.tsx`, `src/components/ui/card.tsx`, `src/components/ui/field.tsx`, `src/components/ui/screen.tsx`, `src/components/ui/empty-state.tsx`
 - Modify: `app.json`, `app/index.tsx`
 
 **Interfaces:**
+
 - Produces: `PocketPosLogo`, `Button`, `Card`, `Field`, `Screen`, and `EmptyState` named components.
 
 - [x] **Step 1: Generate and inspect the monochrome logo source**
@@ -112,12 +116,14 @@ Commit: `feat: add pocketpos brand system`
 ### Task 3: Domain Models, Validation, and Stock Rules
 
 **Files:**
+
 - Create: `src/types/domain.ts`
 - Create: `src/features/setup/business-schema.ts`, `src/features/setup/business-schema.test.ts`
 - Create: `src/features/inventory/product-schema.ts`, `src/features/inventory/product-schema.test.ts`
 - Create: `src/utils/stock.ts`, `src/utils/stock.test.ts`, `src/utils/id.ts`, `src/utils/dates.ts`
 
 **Interfaces:**
+
 - Produces: `Business`, `Product`, `InventoryMovement`, `ReceiptWidth`, `MovementType`.
 - Produces: `businessSchema`, `productSchema`, `stockAdjustmentSchema`.
 - Produces: `isLowStock(product: Pick<Product, "trackInventory" | "stockQuantity" | "lowStockThreshold">): boolean`.
@@ -145,6 +151,7 @@ Commit: `feat: define pocketpos domain rules`
 ### Task 4: SQLite Migrations and Repositories
 
 **Files:**
+
 - Create: `src/db/database.ts`, `src/db/migrations.ts`, `src/db/migrations.test.ts`
 - Create: `src/db/repositories/business-repository.ts`
 - Create: `src/db/repositories/product-repository.ts`
@@ -153,6 +160,7 @@ Commit: `feat: define pocketpos domain rules`
 - Create: `src/db/database-provider.tsx`
 
 **Interfaces:**
+
 - Produces: `initializeDatabase(db: SQLiteDatabase): Promise<void>`.
 - Produces: `businessRepository.get/save`, `productRepository.list/get/create/update/setActive/adjustStock`, and `inventoryRepository.listForProduct`.
 - Produces: `DatabaseProvider` and `useDatabaseReady()`.
@@ -188,12 +196,14 @@ Commit: `feat: add offline data foundation`
 ### Task 5: Setup Flow and Tab Navigation
 
 **Files:**
+
 - Create: `app/setup.tsx`, `app/(tabs)/_layout.tsx`, `app/(tabs)/index.tsx`, `app/(tabs)/bills.tsx`, `app/(tabs)/inventory.tsx`, `app/(tabs)/dashboard.tsx`, `app/(tabs)/settings.tsx`
 - Create: `src/features/setup/business-form.tsx`, `src/features/setup/setup-screen.tsx`
 - Create: `src/features/foundation/foundation-screen.tsx`
 - Modify: `app/_layout.tsx`, `app/index.tsx`
 
 **Interfaces:**
+
 - Consumes: `businessSchema`, `businessRepository`, `DatabaseProvider`.
 - Produces: first-run routing and five stable tab routes.
 
@@ -224,6 +234,7 @@ Commit: `feat: add business setup and navigation`
 ### Task 6: Product CRUD, Stock Adjustments, and Seed Data
 
 **Files:**
+
 - Create: `app/product/new.tsx`, `app/product/[id].tsx`, `app/product/[id]/edit.tsx`
 - Create: `src/features/inventory/inventory-screen.tsx`, `src/features/inventory/product-form.tsx`, `src/features/inventory/product-detail-screen.tsx`, `src/features/inventory/stock-adjustment-form.tsx`
 - Create: `src/features/inventory/product-filter.ts`, `src/features/inventory/product-filter.test.ts`
@@ -231,6 +242,7 @@ Commit: `feat: add business setup and navigation`
 - Modify: `app/(tabs)/inventory.tsx`, `app/(tabs)/settings.tsx`
 
 **Interfaces:**
+
 - Consumes: product and inventory repositories, product schemas, `isLowStock`.
 - Produces: `filterProducts(products, query, mode)` and development-only `seedDemoData()`.
 
@@ -265,11 +277,13 @@ Commit: `feat: add product and stock management`
 ### Task 7: Documentation, Screenshots, and Release Verification
 
 **Files:**
+
 - Create: `README.md`, `docs/APK_BUILD.md`, `docs/ARCHITECTURE.md`, `docs/screenshots/README.md`
 - Create after app verification: `docs/screenshots/setup.png`, `docs/screenshots/inventory.png`, `docs/screenshots/product-detail.png`
 - Modify: `docs/superpowers/plans/2026-07-19-pocketpos-foundation.md`
 
 **Interfaces:**
+
 - Produces: reproducible local, emulator, development APK, release APK, sideload, and upgrade instructions.
 
 - [x] **Step 1: Write concise project documentation**

@@ -4,7 +4,13 @@ import { StyleSheet, Text, View } from "react-native";
 import { colors, spacing } from "@/src/constants/theme";
 import { Button } from "./button";
 
-type EmptyStateProps = { icon: LucideIcon; title: string; body: string; actionLabel?: string; onAction?: () => void };
+type EmptyStateProps = {
+  icon: LucideIcon;
+  title: string;
+  body: string;
+  actionLabel?: string;
+  onAction?: () => void;
+};
 
 export const EmptyState = ({ icon: Icon, title, body, actionLabel, onAction }: EmptyStateProps) => (
   <View style={styles.container}>
@@ -16,7 +22,12 @@ export const EmptyState = ({ icon: Icon, title, body, actionLabel, onAction }: E
 );
 
 const styles = StyleSheet.create({
-  container: { alignItems: "center", gap: spacing.md, justifyContent: "center", padding: spacing.xl },
+  container: {
+    alignItems: "center",
+    gap: spacing.md,
+    justifyContent: "center",
+    padding: spacing.xl,
+  },
   title: { color: colors.text, fontSize: 22, fontWeight: "800", textAlign: "center" },
   body: { color: colors.muted, fontSize: 16, lineHeight: 24, maxWidth: 420, textAlign: "center" },
 });

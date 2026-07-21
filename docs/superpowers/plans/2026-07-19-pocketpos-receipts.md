@@ -22,10 +22,12 @@
 ### Task 1: Thermal Receipt Renderer
 
 **Files:**
+
 - Create: `src/features/receipts/receipt-renderer.ts`
 - Test: `src/features/receipts/receipt-renderer.test.ts`
 
 **Interfaces:**
+
 - Consumes: `Business`, `Bill`, and `BillItem`.
 - Produces: `renderReceiptHtml(input: { business: Business; bill: Bill; items: BillItem[] }): string`.
 
@@ -34,9 +36,11 @@
 Cover escaped business/item/footer text, `@page { size: 58mm auto; }`, the 80 mm variant, metadata, quantities, totals, payment method, and omitted empty optional fields.
 
 ```ts
-expect(renderReceiptHtml({ business, bill, items })).toContain("@page { size: 58mm auto;")
-expect(renderReceiptHtml({ business: { ...business, name: "Som & Sons" }, bill, items })).toContain("Som &amp; Sons")
-expect(renderReceiptHtml({ business, bill, items })).toContain("2 × ₹ 30.00")
+expect(renderReceiptHtml({ business, bill, items })).toContain("@page { size: 58mm auto;");
+expect(renderReceiptHtml({ business: { ...business, name: "Som & Sons" }, bill, items })).toContain(
+  "Som &amp; Sons",
+);
+expect(renderReceiptHtml({ business, bill, items })).toContain("2 × ₹ 30.00");
 ```
 
 - [ ] **Step 2: Verify RED**
@@ -72,6 +76,7 @@ git commit -m "feat: add thermal receipt renderer"
 ### Task 2: Receipt Persistence and Native Service
 
 **Files:**
+
 - Modify: `src/db/repositories/bill-repository.ts`
 - Test: `src/db/repositories/bill-repository.test.ts`
 - Create: `src/features/receipts/receipt-service.ts`
@@ -79,6 +84,7 @@ git commit -m "feat: add thermal receipt renderer"
 - Modify: `package.json`, `pnpm-lock.yaml`
 
 **Interfaces:**
+
 - Produces repository methods `setPrintStatus(id, status)` and `setPdfUri(id, uri)`.
 - Produces `createReceiptService(db, adapters?)` with `printBillReceipt`, `createBillPdf`, and `shareBillPdf`.
 
@@ -138,9 +144,11 @@ git commit -m "feat: add receipt output service"
 ### Task 3: Bill Detail Receipt Actions
 
 **Files:**
+
 - Modify: `src/features/billing/bill-detail-screen.tsx`
 
 **Interfaces:**
+
 - Consumes: `createReceiptService(db).printBillReceipt(id)` and `.shareBillPdf(id)`.
 - Produces: print/share actions and durable status feedback.
 
@@ -175,9 +183,11 @@ git commit -m "feat: add bill receipt actions"
 ### Task 4: Save and Print Checkout
 
 **Files:**
+
 - Modify: `src/features/billing/sell-screen.tsx`
 
 **Interfaces:**
+
 - Consumes: `completeBill` and `createReceiptService(db).printBillReceipt(bill.id)`.
 - Produces: Save bill and Save & print paths sharing one durable completion function.
 
@@ -208,11 +218,13 @@ git commit -m "feat: add save and print checkout"
 ### Task 5: Simulator QA and Documentation
 
 **Files:**
+
 - Modify: `README.md`
 - Modify: `docs/screenshots/README.md`
 - Create: `docs/screenshots/receipt-actions.png`
 
 **Interfaces:**
+
 - Consumes: completed receipt output UI.
 - Produces: real simulator evidence and updated feature documentation.
 
@@ -236,4 +248,3 @@ Expected: clean diff, tests PASS, checks exit 0, Android export succeeds.
 git add README.md docs/screenshots/README.md docs/screenshots/receipt-actions.png
 git commit -m "docs: document receipt output"
 ```
-

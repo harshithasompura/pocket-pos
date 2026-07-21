@@ -8,7 +8,8 @@ import type { BackupV1 } from "./backup-types";
 import { parseBackupJson } from "./backup-validation";
 
 export const exportAndShareBackup = async (db: SQLiteDatabase): Promise<string> => {
-  if (!FileSystem.documentDirectory) throw new Error("Backup storage is unavailable on this device.");
+  if (!FileSystem.documentDirectory)
+    throw new Error("Backup storage is unavailable on this device.");
 
   const backup = await createBackup(db);
   const date = backup.exportedAt.slice(0, 10);

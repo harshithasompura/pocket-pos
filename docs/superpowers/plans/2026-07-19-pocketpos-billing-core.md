@@ -23,6 +23,7 @@
 ### Task 1: Billing calculations and cart state
 
 **Files:**
+
 - Create: `src/features/billing/billing-types.ts`
 - Create: `src/features/billing/billing-calculations.ts`
 - Create: `src/features/billing/billing-calculations.test.ts`
@@ -30,6 +31,7 @@
 - Create: `src/features/billing/cart-store.test.ts`
 
 **Interfaces:**
+
 - Produces: `CartLine`, `Discount`, `PaymentMethod`, `BillTotals`.
 - Produces: `calculateBillTotals(lines, discount, taxEnabled, taxPercentage): BillTotals`.
 - Produces: `useCartStore` with `addProduct`, `addCustomItem`, `increment`, `decrement`, `remove`, `setDiscount`, `setPaymentMethod`, and `clear`.
@@ -50,9 +52,24 @@ Use these contracts:
 
 ```ts
 export type PaymentMethod = "cash" | "upi" | "card" | "other";
-export type Discount = { type: "none" } | { type: "fixed"; value: number } | { type: "percentage"; value: number };
-export type CartLine = { id: string; productId: string | null; name: string; sku: string | null; unitPricePaise: number; quantity: number; affectsInventory: boolean };
-export type BillTotals = { subtotalPaise: number; discountPaise: number; taxPaise: number; totalPaise: number; totalUnits: number };
+export type Discount =
+  { type: "none" } | { type: "fixed"; value: number } | { type: "percentage"; value: number };
+export type CartLine = {
+  id: string;
+  productId: string | null;
+  name: string;
+  sku: string | null;
+  unitPricePaise: number;
+  quantity: number;
+  affectsInventory: boolean;
+};
+export type BillTotals = {
+  subtotalPaise: number;
+  discountPaise: number;
+  taxPaise: number;
+  totalPaise: number;
+  totalUnits: number;
+};
 ```
 
 - [ ] **Step 4: Verify calculation GREEN**
@@ -87,6 +104,7 @@ git commit -m "feat: add billing cart foundation" -m "Co-authored-by: Codex <nor
 ### Task 2: Atomic billing persistence and history reads
 
 **Files:**
+
 - Modify: `src/types/domain.ts`
 - Modify: `src/db/repositories/repository-mappers.ts`
 - Modify: `src/db/repositories/repository-mappers.test.ts`
@@ -95,6 +113,7 @@ git commit -m "feat: add billing cart foundation" -m "Co-authored-by: Codex <nor
 - Create: `src/features/billing/billing-service.test.ts`
 
 **Interfaces:**
+
 - Produces: `Bill` and `BillItem` domain types.
 - Produces: `createBillRepository(db)` with `list()`, `get(id)`, and `listItems(billId)`.
 - Produces: `completeBill(db, input): Promise<Bill>`.
@@ -137,12 +156,14 @@ git commit -m "feat: add atomic bill completion" -m "Co-authored-by: Codex <nore
 ### Task 3: Sell and checkout experience
 
 **Files:**
+
 - Create: `src/features/billing/sell-screen.tsx`
 - Create: `src/features/billing/cart-line-row.tsx`
 - Create: `src/features/billing/custom-item-form.tsx`
 - Modify: `app/(tabs)/index.tsx`
 
 **Interfaces:**
+
 - Consumes: `useCartStore`, `calculateBillTotals`, product/business repositories, and `completeBill`.
 - Produces: searchable product catalogue, cart editor, discount/payment controls, and save action.
 
@@ -174,6 +195,7 @@ git commit -m "feat: add offline checkout flow" -m "Co-authored-by: Codex <norep
 ### Task 4: Bill history and bill detail
 
 **Files:**
+
 - Create: `src/features/billing/bills-screen.tsx`
 - Create: `src/features/billing/bill-detail-screen.tsx`
 - Modify: `app/(tabs)/bills.tsx`
@@ -181,6 +203,7 @@ git commit -m "feat: add offline checkout flow" -m "Co-authored-by: Codex <norep
 - Modify: `app/_layout.tsx`
 
 **Interfaces:**
+
 - Consumes: bill repository and currency/date formatters.
 - Produces: searchable newest-first bill history and immutable bill-detail presentation.
 
@@ -204,6 +227,7 @@ git commit -m "feat: add bill history" -m "Co-authored-by: Codex <noreply@openai
 ### Task 5: Documentation, simulator QA, and export
 
 **Files:**
+
 - Modify: `README.md`
 - Create: `docs/screenshots/checkout.png`
 - Create: `docs/screenshots/bill-detail.png`

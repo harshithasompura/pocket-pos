@@ -1,2 +1,28 @@
-import type { SQLiteDatabase } from "expo-sqlite"; import { describe,expect,it } from "vitest"; import { createAnalyticsRepository } from "./analytics-repository"; import { getDashboardRange } from "./dashboard-range";
-describe("analytics repository",()=>{it("normalizes empty analytics",async()=>{const db={getFirstAsync:async(sql:string)=>sql.includes("COUNT(*) count")?{count:2}:{totalSalesPaise:null,billCount:0,totalUnits:null},getAllAsync:async()=>[]} as unknown as SQLiteDatabase; const result=await createAnalyticsRepository(db).getDashboardAnalytics(getDashboardRange("today",new Date(2026,6,19,12))); expect(result).toMatchObject({totalSalesPaise:0,billCount:0,totalUnits:0,averageBillPaise:0,lowStockCount:2,topProducts:[],recentBills:[]}); expect(result.payments).toHaveLength(4);});});
+import type { SQLiteDatabase } from "expo-sqlite";
+import { describe, expect, it } from "vitest";
+import { createAnalyticsRepository } from "./analytics-repository";
+import { getDashboardRange } from "./dashboard-range";
+describe("analytics repository", () => {
+  it("normalizes empty analytics", async () => {
+    const db = {
+      getFirstAsync: async (sql: string) =>
+        sql.includes("COUNT(*) count")
+          ? { count: 2 }
+          : { totalSalesPaise: null, billCount: 0, totalUnits: null },
+      getAllAsync: async () => [],
+    } as unknown as SQLiteDatabase;
+    const result = await createAnalyticsRepository(db).getDashboardAnalytics(
+      getDashboardRange("today", new Date(2026, 6, 19, 12)),
+    );
+    expect(result).toMatchObject({
+      totalSalesPaise: 0,
+      billCount: 0,
+      totalUnits: 0,
+      averageBillPaise: 0,
+      lowStockCount: 2,
+      topProducts: [],
+      recentBills: [],
+    });
+    expect(result.payments).toHaveLength(4);
+  });
+});
