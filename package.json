@@ -47,5 +47,6 @@
     "lint": "eslint .",
     "export": "expo export --platform android"
   },
-  "private": true
+  "private": false,
+  "license": "MIT"
 }
