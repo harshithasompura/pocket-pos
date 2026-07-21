@@ -2,15 +2,30 @@ import { describe, expect, it } from "vitest";
 
 import { createCartStore } from "./cart-store-core";
 
-const product = { id: "p1", businessId: "b1", name: "Tea", sku: "T1", category: null, sellingPricePaise: 3000, stockQuantity: 10, lowStockThreshold: 2, trackInventory: true, isActive: true, createdAt: "", updatedAt: "" };
+const product = {
+  id: "p1",
+  businessId: "b1",
+  name: "Tea",
+  sku: "T1",
+  category: null,
+  sellingPricePaise: 3000,
+  stockQuantity: 10,
+  lowStockThreshold: 2,
+  trackInventory: true,
+  isActive: true,
+  createdAt: "",
+  updatedAt: "",
+};
 
 describe("cart store", () => {
   it("merges repeated products and removes a line when decremented to zero", () => {
     const store = createCartStore();
-    store.getState().addProduct(product); store.getState().addProduct(product);
+    store.getState().addProduct(product);
+    store.getState().addProduct(product);
     expect(store.getState().lines[0]?.quantity).toBe(2);
     const id = store.getState().lines[0]!.id;
-    store.getState().decrement(id); store.getState().decrement(id);
+    store.getState().decrement(id);
+    store.getState().decrement(id);
     expect(store.getState().lines).toEqual([]);
   });
 
@@ -28,9 +43,12 @@ describe("cart store", () => {
   });
 
   it("increments and explicitly removes a line", () => {
-    const store = createCartStore(); store.getState().addProduct(product);
+    const store = createCartStore();
+    store.getState().addProduct(product);
     const id = store.getState().lines[0]!.id;
-    store.getState().increment(id); expect(store.getState().lines[0]?.quantity).toBe(2);
-    store.getState().remove(id); expect(store.getState().lines).toEqual([]);
+    store.getState().increment(id);
+    expect(store.getState().lines[0]?.quantity).toBe(2);
+    store.getState().remove(id);
+    expect(store.getState().lines).toEqual([]);
   });
 });

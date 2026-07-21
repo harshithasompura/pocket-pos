@@ -1,5 +1,12 @@
 export type ReceiptWidth = 58 | 80;
-export type MovementType = "opening_stock" | "stock_added" | "manual_correction" | "sale" | "bill_void" | "damaged" | "other";
+export type MovementType =
+  | "opening_stock"
+  | "stock_added"
+  | "manual_correction"
+  | "sale"
+  | "bill_void"
+  | "damaged"
+  | "other";
 
 export type Business = {
   id: string;
@@ -46,5 +53,32 @@ export type InventoryMovement = {
 
 export type PaymentMethod = "cash" | "upi" | "card" | "other";
 export type BillStatus = "completed" | "void";
-export type Bill = { id: string; businessId: string; billNumber: string; subtotalPaise: number; discountPaise: number; taxPaise: number; totalPaise: number; totalUnits: number; paymentMethod: PaymentMethod; status: BillStatus; printStatus: string; pdfUri: string | null; voidReason: string | null; createdAt: string; voidedAt: string | null };
-export type BillItem = { id: string; billId: string; productId: string | null; name: string; sku: string | null; quantity: number; unitPricePaise: number; lineTotalPaise: number; affectsInventory: boolean; createdAt: string };
+export type Bill = {
+  id: string;
+  businessId: string;
+  billNumber: string;
+  subtotalPaise: number;
+  discountPaise: number;
+  taxPaise: number;
+  totalPaise: number;
+  totalUnits: number;
+  paymentMethod: PaymentMethod;
+  status: BillStatus;
+  printStatus: string;
+  pdfUri: string | null;
+  voidReason: string | null;
+  createdAt: string;
+  voidedAt: string | null;
+};
+export type BillItem = {
+  id: string;
+  billId: string;
+  productId: string | null;
+  name: string;
+  sku: string | null;
+  quantity: number;
+  unitPricePaise: number;
+  lineTotalPaise: number;
+  affectsInventory: boolean;
+  createdAt: string;
+};

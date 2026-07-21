@@ -76,4 +76,3 @@ UI behavior is verified with TypeScript, ESLint, Android export, and iPhone 15 s
 ## Client Acceptance
 
 A client-ready void flow must preserve the original bill, restore stock exactly once, create a visible audit movement, disappear from dashboard sales totals, and survive app restart entirely offline.
-

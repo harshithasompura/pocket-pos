@@ -2,7 +2,21 @@ import { describe, expect, it } from "vitest";
 import type { Product } from "@/src/types/domain";
 import { filterProducts } from "./product-filter";
 
-const product = (values: Partial<Product>): Product => ({ id: "1", businessId: "b", name: "Masala Tea", sku: "TEA-1", category: null, sellingPricePaise: 2000, stockQuantity: 1, lowStockThreshold: 2, trackInventory: true, isActive: true, createdAt: "", updatedAt: "", ...values });
+const product = (values: Partial<Product>): Product => ({
+  id: "1",
+  businessId: "b",
+  name: "Masala Tea",
+  sku: "TEA-1",
+  category: null,
+  sellingPricePaise: 2000,
+  stockQuantity: 1,
+  lowStockThreshold: 2,
+  trackInventory: true,
+  isActive: true,
+  createdAt: "",
+  updatedAt: "",
+  ...values,
+});
 
 describe("filterProducts", () => {
   it("searches names and SKUs case-insensitively", () => {

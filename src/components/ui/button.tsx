@@ -8,7 +8,14 @@ type ButtonProps = PressableProps & {
   variant?: "primary" | "secondary" | "danger";
 };
 
-export const Button = ({ label, loading = false, variant = "primary", disabled, style, ...props }: ButtonProps) => (
+export const Button = ({
+  label,
+  loading = false,
+  variant = "primary",
+  disabled,
+  style,
+  ...props
+}: ButtonProps) => (
   <Pressable
     accessibilityRole="button"
     disabled={disabled || loading}
@@ -24,13 +31,24 @@ export const Button = ({ label, loading = false, variant = "primary", disabled, 
     {loading ? (
       <ActivityIndicator color={variant === "primary" ? colors.inverse : colors.text} />
     ) : (
-      <Text style={[styles.label, variant === "primary" ? styles.primaryLabel : styles.secondaryLabel]}>{label}</Text>
+      <Text
+        style={[styles.label, variant === "primary" ? styles.primaryLabel : styles.secondaryLabel]}
+      >
+        {label}
+      </Text>
     )}
   </Pressable>
 );
 
 const styles = StyleSheet.create({
-  base: { alignItems: "center", borderRadius: radius.md, borderWidth: 1, justifyContent: "center", minHeight: 50, paddingHorizontal: spacing.lg },
+  base: {
+    alignItems: "center",
+    borderRadius: radius.md,
+    borderWidth: 1,
+    justifyContent: "center",
+    minHeight: 50,
+    paddingHorizontal: spacing.lg,
+  },
   primary: { backgroundColor: colors.text, borderColor: colors.text },
   secondary: { backgroundColor: colors.surface, borderColor: colors.border },
   danger: { backgroundColor: colors.surface, borderColor: colors.danger },

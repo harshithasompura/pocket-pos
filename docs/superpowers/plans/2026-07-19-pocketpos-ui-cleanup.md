@@ -21,11 +21,13 @@
 ### Task 1: Expo configuration and navigation labels
 
 **Files:**
+
 - Delete: `expo-env.d.ts`
 - Modify: `tsconfig.json`
 - Modify: `app/_layout.tsx`
 
 **Interfaces:**
+
 - Consumes: Expo Router's `Stack` and the existing route files.
 - Produces: explicit root-stack presentation for setup, tabs, product creation, product detail, and product editing.
 
@@ -70,6 +72,7 @@ git commit -m "fix: clean up navigation headers" -m "Co-authored-by: Codex <nore
 ### Task 2: Shared spacing and screen hierarchy
 
 **Files:**
+
 - Modify: `src/constants/theme.ts`
 - Modify: `src/components/ui/screen.tsx`
 - Modify: `src/components/ui/card.tsx`
@@ -82,6 +85,7 @@ git commit -m "fix: clean up navigation headers" -m "Co-authored-by: Codex <nore
 - Modify: `app/(tabs)/settings.tsx`
 
 **Interfaces:**
+
 - Consumes: `spacing` tokens and the existing `Screen`, `Card`, and `Field` APIs.
 - Produces: a `spacing.xxl` token worth 40 points and consistent page, section, form, and card gaps.
 
@@ -129,6 +133,7 @@ git commit -m "style: improve interface spacing" -m "Co-authored-by: Codex <nore
 ### Task 3: Refresh visual documentation
 
 **Files:**
+
 - Modify: `docs/screenshots/setup.png`
 - Modify: `docs/screenshots/inventory.png`
 - Modify: `docs/screenshots/product-detail.png`
@@ -136,6 +141,7 @@ git commit -m "style: improve interface spacing" -m "Co-authored-by: Codex <nore
 - Modify: `docs/screenshots/README.md` only if capture conditions changed.
 
 **Interfaces:**
+
 - Consumes: the verified iPhone 15 simulator screens and existing demo SQLite data.
 - Produces: current 1179 × 2556 README imagery.
 

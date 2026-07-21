@@ -5,8 +5,12 @@ import { migrations } from "./migrations";
 export const DATABASE_NAME = "pocketpos.db";
 
 export const initializeDatabase = async (db: SQLiteDatabase) => {
-  await db.execAsync("PRAGMA foreign_keys = ON; PRAGMA journal_mode = WAL; CREATE TABLE IF NOT EXISTS schema_migrations (version INTEGER PRIMARY KEY, name TEXT NOT NULL, applied_at TEXT NOT NULL);");
-  const applied = await db.getAllAsync<{ version: number }>("SELECT version FROM schema_migrations");
+  await db.execAsync(
+    "PRAGMA foreign_keys = ON; PRAGMA journal_mode = WAL; CREATE TABLE IF NOT EXISTS schema_migrations (version INTEGER PRIMARY KEY, name TEXT NOT NULL, applied_at TEXT NOT NULL);",
+  );
+  const applied = await db.getAllAsync<{ version: number }>(
+    "SELECT version FROM schema_migrations",
+  );
   const appliedVersions = new Set(applied.map(({ version }) => version));
 
   for (const migration of migrations) {

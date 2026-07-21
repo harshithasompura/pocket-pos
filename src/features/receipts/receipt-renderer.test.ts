@@ -37,29 +37,32 @@ const bill: Bill = {
   voidedAt: null,
 };
 
-const items: BillItem[] = [{
-  id: "item-1",
-  billId: "bill-1",
-  productId: "tea",
-  name: "Masala <Tea>",
-  sku: "TEA-001",
-  quantity: 2,
-  unitPricePaise: 3000,
-  lineTotalPaise: 6000,
-  affectsInventory: true,
-  createdAt: bill.createdAt,
-}, {
-  id: "item-2",
-  billId: "bill-1",
-  productId: null,
-  name: "Paper Bag",
-  sku: null,
-  quantity: 1,
-  unitPricePaise: 2500,
-  lineTotalPaise: 2500,
-  affectsInventory: false,
-  createdAt: bill.createdAt,
-}];
+const items: BillItem[] = [
+  {
+    id: "item-1",
+    billId: "bill-1",
+    productId: "tea",
+    name: "Masala <Tea>",
+    sku: "TEA-001",
+    quantity: 2,
+    unitPricePaise: 3000,
+    lineTotalPaise: 6000,
+    affectsInventory: true,
+    createdAt: bill.createdAt,
+  },
+  {
+    id: "item-2",
+    billId: "bill-1",
+    productId: null,
+    name: "Paper Bag",
+    sku: null,
+    quantity: 1,
+    unitPricePaise: 2500,
+    lineTotalPaise: 2500,
+    affectsInventory: false,
+    createdAt: bill.createdAt,
+  },
+];
 
 describe("renderReceiptHtml", () => {
   it("renders a complete escaped 58 mm receipt", () => {
@@ -79,8 +82,9 @@ describe("renderReceiptHtml", () => {
   });
 
   it("uses the configured 80 mm width", () => {
-    expect(renderReceiptHtml({ business: { ...business, receiptWidth: 80 }, bill, items }))
-      .toContain("@page { size: 80mm auto;");
+    expect(
+      renderReceiptHtml({ business: { ...business, receiptWidth: 80 }, bill, items }),
+    ).toContain("@page { size: 80mm auto;");
   });
 
   it("omits empty optional business fields", () => {

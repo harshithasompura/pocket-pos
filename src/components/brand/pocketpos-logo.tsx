@@ -6,7 +6,10 @@ type PocketPosLogoProps = { compact?: boolean };
 
 export const PocketPosLogo = ({ compact = false }: PocketPosLogoProps) => (
   <View style={styles.row}>
-    <Image source={require("@/assets/pocketpos-mark.png")} style={compact ? styles.compactMark : styles.mark} />
+    <Image
+      source={require("@/assets/pocketpos-mark.png")}
+      style={compact ? styles.compactMark : styles.mark}
+    />
     {!compact && <Text style={styles.wordmark}>PocketPOS</Text>}
   </View>
 );

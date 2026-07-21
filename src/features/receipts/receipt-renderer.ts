@@ -4,12 +4,13 @@ import { formatDateTime } from "@/src/utils/dates";
 
 type ReceiptInput = { business: Business; bill: Bill; items: BillItem[] };
 
-const escapeHtml = (value: string) => value
-  .replaceAll("&", "&amp;")
-  .replaceAll("<", "&lt;")
-  .replaceAll(">", "&gt;")
-  .replaceAll('"', "&quot;")
-  .replaceAll("'", "&#39;");
+const escapeHtml = (value: string) =>
+  value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 
 const line = (label: string, value: string) =>
   `<div class="row"><span>${label}</span><span>${value}</span></div>`;
@@ -22,14 +23,18 @@ export const renderReceiptHtml = ({ business, bill, items }: ReceiptInput): stri
     business.phone ? `<div>Phone: ${escapeHtml(business.phone)}</div>` : "",
     business.gstNumber ? `<div>GST: ${escapeHtml(business.gstNumber)}</div>` : "",
   ].join("");
-  const itemRows = items.map((item) => `
+  const itemRows = items
+    .map(
+      (item) => `
     <div class="item">
       <div class="item-name">${escapeHtml(item.name)}</div>
       <div class="row">
         <span>${item.quantity} × ${currency(item.unitPricePaise)}</span>
         <strong>${currency(item.lineTotalPaise)}</strong>
       </div>
-    </div>`).join("");
+    </div>`,
+    )
+    .join("");
 
   return `<!doctype html>
 <html>
@@ -71,4 +76,3 @@ export const renderReceiptHtml = ({ business, bill, items }: ReceiptInput): stri
 </body>
 </html>`;
 };
-

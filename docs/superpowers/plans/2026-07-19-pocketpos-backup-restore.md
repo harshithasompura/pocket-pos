@@ -57,4 +57,3 @@
 - [ ] Document backup frequency, secure storage, restore replacement behavior, and client transfer steps.
 - [ ] Run `git diff --check && pnpm test && pnpm typecheck && pnpm lint && pnpm export && pnpm dlx expo-doctor`.
 - [ ] Commit `docs: document backup restore`.
-

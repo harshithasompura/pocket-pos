@@ -56,8 +56,19 @@ The screen reloads when it gains focus and whenever the selected range changes. 
 export type DashboardRange = "today" | "7d" | "30d";
 export type SalesDay = { date: string; salesPaise: number };
 export type PaymentTotal = { method: PaymentMethod; salesPaise: number };
-export type ProductSales = { key: string; productId: string | null; name: string; units: number; revenuePaise: number };
-export type LowStockProduct = { id: string; name: string; stockQuantity: number; lowStockThreshold: number };
+export type ProductSales = {
+  key: string;
+  productId: string | null;
+  name: string;
+  units: number;
+  revenuePaise: number;
+};
+export type LowStockProduct = {
+  id: string;
+  name: string;
+  stockQuantity: number;
+  lowStockThreshold: number;
+};
 export type DashboardAnalytics = {
   totalSalesPaise: number;
   billCount: number;
@@ -83,4 +94,3 @@ Repository failures do not crash navigation. The dashboard displays a concise re
 Unit tests cover local range boundaries, number of daily buckets, payment ordering, and missing-day normalization. Repository tests use an in-memory Expo SQLite database seeded with completed and void bills, multiple payment methods, product/custom-item snapshots, and low-stock products. They verify totals, exclusions, rankings, and empty ranges.
 
 Project verification requires the full Vitest suite, TypeScript, ESLint, and Android Expo export. Simulator QA on iPhone 15 covers each range, zero data, long product names, scrolling, and navigation from recent/low-stock rows.
-

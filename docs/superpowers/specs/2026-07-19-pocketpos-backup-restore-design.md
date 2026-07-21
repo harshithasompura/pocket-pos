@@ -33,4 +33,3 @@ Settings gains a **Data backup** section with Export & share backup and Restore 
 Pure validation tests cover valid backups, future versions, duplicate IDs, broken references, malformed values, and JSON parse failures. Service tests verify table reads, deletion/insertion order, and that validation happens before the transaction. Full checks include tests, TypeScript, lint, Android export, Expo Doctor, and simulator export/restore using a disposable dataset.
 
 Client acceptance requires a shared JSON file that restores business settings, products, stock, bills, void states, movements, and bill sequence exactly after app restart.
-

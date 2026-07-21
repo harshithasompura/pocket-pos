@@ -19,9 +19,19 @@ export const createBusinessRepository = (db: SQLiteDatabase) => ({
       `INSERT INTO businesses (id,name,address,phone,gst_number,currency,receipt_width,receipt_footer,tax_enabled,default_tax_percentage,inventory_tracking_enabled,created_at,updated_at)
        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
        ON CONFLICT(id) DO UPDATE SET name=excluded.name,address=excluded.address,phone=excluded.phone,gst_number=excluded.gst_number,currency=excluded.currency,receipt_width=excluded.receipt_width,receipt_footer=excluded.receipt_footer,tax_enabled=excluded.tax_enabled,default_tax_percentage=excluded.default_tax_percentage,inventory_tracking_enabled=excluded.inventory_tracking_enabled,updated_at=excluded.updated_at`,
-      id, values.name, values.address || null, values.phone || null, values.gstNumber || null, values.currency,
-      values.receiptWidth, values.receiptFooter || null, values.taxEnabled ? 1 : 0, values.defaultTaxPercentage,
-      values.inventoryTrackingEnabled ? 1 : 0, existing?.createdAt ?? now, now,
+      id,
+      values.name,
+      values.address || null,
+      values.phone || null,
+      values.gstNumber || null,
+      values.currency,
+      values.receiptWidth,
+      values.receiptFooter || null,
+      values.taxEnabled ? 1 : 0,
+      values.defaultTaxPercentage,
+      values.inventoryTrackingEnabled ? 1 : 0,
+      existing?.createdAt ?? now,
+      now,
     );
     return (await this.get())!;
   },

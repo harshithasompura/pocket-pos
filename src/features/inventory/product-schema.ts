@@ -13,7 +13,10 @@ export const productSchema = z.object({
 
 export const stockAdjustmentSchema = z.object({
   movementType: z.enum(["stock_added", "manual_correction", "damaged", "other"]),
-  quantityChange: z.number().int().refine((value) => value !== 0, "Quantity cannot be zero"),
+  quantityChange: z
+    .number()
+    .int()
+    .refine((value) => value !== 0, "Quantity cannot be zero"),
   note: z.string().trim().optional().default(""),
 });
 

@@ -11,4 +11,5 @@ const nativeAdapters: ReceiptAdapters = {
   shareAsync: (uri, options) => Sharing.shareAsync(uri, options),
 };
 
-export const createNativeReceiptService = (db: SQLiteDatabase) => createReceiptService(db, nativeAdapters);
+export const createNativeReceiptService = (db: SQLiteDatabase) =>
+  createReceiptService(db, nativeAdapters);

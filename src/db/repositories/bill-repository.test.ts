@@ -6,7 +6,11 @@ import { createBillRepository } from "./bill-repository";
 describe("bill repository output state", () => {
   it("persists print status and PDF URI", async () => {
     const calls: unknown[][] = [];
-    const db = { runAsync: async (...args: unknown[]) => { calls.push(args); } } as unknown as SQLiteDatabase;
+    const db = {
+      runAsync: async (...args: unknown[]) => {
+        calls.push(args);
+      },
+    } as unknown as SQLiteDatabase;
     const repository = createBillRepository(db);
 
     await repository.setPrintStatus("bill-1", "printed");
@@ -18,4 +22,3 @@ describe("bill repository output state", () => {
     ]);
   });
 });
-

@@ -25,10 +25,12 @@
 ### Task 1: Atomic Void Service
 
 **Files:**
+
 - Create: `src/features/billing/bill-void-service.ts`
 - Test: `src/features/billing/bill-void-service.test.ts`
 
 **Interfaces:**
+
 - Consumes: `SQLiteDatabase`, bill/bill-item/product rows, `createId`, and `nowIso`.
 - Produces: `voidBill(db: SQLiteDatabase, input: { billId: string; reason: string }): Promise<Bill>`.
 
@@ -40,14 +42,18 @@ Build a transaction fake that returns a completed bill, tracked and custom item 
 const bill = await voidBill(db, { billId: "b1", reason: "  Customer cancelled  " });
 expect(bill.status).toBe("void");
 expect(bill.voidReason).toBe("Customer cancelled");
-expect(calls).toContainEqual(expect.objectContaining({
-  sql: expect.stringContaining("UPDATE products"),
-  args: expect.arrayContaining([12]),
-}));
-expect(calls).toContainEqual(expect.objectContaining({
-  sql: expect.stringContaining("INSERT INTO inventory_movements"),
-  args: expect.arrayContaining(["bill_void"]),
-}));
+expect(calls).toContainEqual(
+  expect.objectContaining({
+    sql: expect.stringContaining("UPDATE products"),
+    args: expect.arrayContaining([12]),
+  }),
+);
+expect(calls).toContainEqual(
+  expect.objectContaining({
+    sql: expect.stringContaining("INSERT INTO inventory_movements"),
+    args: expect.arrayContaining(["bill_void"]),
+  }),
+);
 ```
 
 Add tests for aggregation of repeated tracked lines, ignored custom/non-tracked lines, short reason, already voided bill, missing bill, and missing tracked product.
@@ -71,8 +77,15 @@ await txn.runAsync(
 );
 await txn.runAsync(
   "INSERT INTO inventory_movements (...) VALUES (?,?,?,?,?,?,?,?,?)",
-  createId(), productId, bill.id, "bill_void", before, quantity, after,
-  `Voided ${bill.bill_number}: ${reason}`, voidedAt,
+  createId(),
+  productId,
+  bill.id,
+  "bill_void",
+  before,
+  quantity,
+  after,
+  `Voided ${bill.bill_number}: ${reason}`,
+  voidedAt,
 );
 ```
 
@@ -105,10 +118,12 @@ git commit -m "feat: add atomic bill voiding"
 ### Task 2: Void UI and History State
 
 **Files:**
+
 - Modify: `src/features/billing/bill-detail-screen.tsx`
 - Modify: `src/features/billing/bills-screen.tsx`
 
 **Interfaces:**
+
 - Consumes: `voidBill(db, { billId, reason })`.
 - Produces: reason entry, destructive confirmation, durable void detail state, and list labels.
 
@@ -121,14 +136,10 @@ Add `showVoidForm`, `voidReason`, and `voiding` state. For completed bills, rend
 Reject reasons shorter than three trimmed characters with `Alert.alert("Reason required", ...)`. Otherwise use an Android-compatible confirmation alert:
 
 ```ts
-Alert.alert(
-  "Void this bill?",
-  "Tracked stock will be restored. This cannot be undone.",
-  [
-    { text: "Cancel", style: "cancel" },
-    { text: "Void bill", style: "destructive", onPress: confirmVoid },
-  ],
-);
+Alert.alert("Void this bill?", "Tracked stock will be restored. This cannot be undone.", [
+  { text: "Cancel", style: "cancel" },
+  { text: "Void bill", style: "destructive", onPress: confirmVoid },
+]);
 ```
 
 `confirmVoid` invokes the service, clears the form, reloads the bill, and displays a failure alert saying nothing changed when the transaction rejects.
@@ -157,11 +168,13 @@ git commit -m "feat: add bill void controls"
 ### Task 3: Simulator Audit and Documentation
 
 **Files:**
+
 - Modify: `README.md`
 - Modify: `docs/screenshots/README.md`
 - Create: `docs/screenshots/voided-bill.png`
 
 **Interfaces:**
+
 - Consumes: completed void workflow and simulator demo data.
 - Produces: visual/audit evidence and updated feature documentation.
 
@@ -195,4 +208,3 @@ Expected: clean diff, all tests PASS, static checks exit 0, Android export succe
 git add README.md docs/screenshots/README.md docs/screenshots/voided-bill.png
 git commit -m "docs: document bill voiding"
 ```
-
