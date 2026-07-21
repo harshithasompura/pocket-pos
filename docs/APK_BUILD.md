@@ -1,6 +1,6 @@
 # PocketPOS APK Build Guide
 
-PocketPOS uses the stable Android package name `com.nodori.pocketpos`. Do not change this identifier after client installation; Android treats a different package as a separate app.
+PocketPOS uses the stable Android package name `com.harshithasompura.pocketpos`. Do not change this identifier after client installation; Android treats a different package as a separate app.
 
 ## Local Android development
 
